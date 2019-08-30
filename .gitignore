@@ -1,5 +1,6 @@
 auto-save-list/*
 backups/*
 elpa/*
+eshell/*
 transient/*
 network-security.data
