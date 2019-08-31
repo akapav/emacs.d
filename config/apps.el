@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; org-mode
 (use-package org
   :bind (("C-c l" . org-store-link)

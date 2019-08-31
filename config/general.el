@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; basic appearance
 (setq inhibit-splash-screen t)
 (menu-bar-mode 0)
