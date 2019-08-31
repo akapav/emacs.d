@@ -16,7 +16,7 @@
       ring-bell-function (lambda nil))
 
 ;; x clipboard
-(setq  x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 
 ;; mouse scroll
 (mouse-wheel-mode t)
@@ -52,7 +52,7 @@
 
 ;; line numbers
 (defun goto-line-x (orig-goto-line)
-  "display line number on interactive goto-line"
+  "Display line number on interactive goto-line."
   (interactive)
   (unwind-protect
       (progn
