@@ -18,3 +18,6 @@
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
+
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
