@@ -4,3 +4,4 @@ elpa/*
 eshell/*
 transient/*
 network-security.data
+.lsp-session*
