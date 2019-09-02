@@ -24,3 +24,11 @@
 (use-package rust-mode
   :ensure t
   :hook (rust-mode . lsp))
+
+(use-package toml-mode
+  :ensure t)
+
+(use-package cargo
+  :ensure t
+  :hook ((rust-mode . cargo-minor-mode)
+         (toml-mode . cargo-minor-mode)))
