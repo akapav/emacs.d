@@ -32,3 +32,14 @@
   :ensure t
   :hook ((rust-mode . cargo-minor-mode)
          (toml-mode . cargo-minor-mode)))
+
+;; js
+;;
+;; npm install -g --save typescript
+;; npm install -g typescript-language-server
+;;
+
+(add-hook 'js-mode-hook #'lsp)
+
+(use-package js-comint
+  :ensure t)
