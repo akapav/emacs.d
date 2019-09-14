@@ -5,3 +5,5 @@ eshell/*
 transient/*
 network-security.data
 .lsp-session*
+ido.last
+smex-items

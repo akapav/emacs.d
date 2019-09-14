@@ -148,3 +148,12 @@
 
 ;; paren
 (show-paren-mode t)
+
+;; ido
+(use-package ido
+  :init (ido-mode t))
+
+(use-package smex
+  :ensure t
+  :config (smex-initialize)
+  :bind (("M-x" . smex)))
