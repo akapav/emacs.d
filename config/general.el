@@ -157,3 +157,11 @@
   :ensure t
   :config (smex-initialize)
   :bind (("M-x" . smex)))
+
+;; grep
+(use-package rg
+  :ensure t
+  :config (rg-enable-default-bindings))
+
+(use-package wgrep
+  :ensure t)
