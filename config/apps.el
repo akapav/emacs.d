@@ -21,3 +21,6 @@
 
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;; erc
+(use-package znc :ensure t)
