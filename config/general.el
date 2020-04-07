@@ -10,6 +10,7 @@
 
 ;; font
 ;;;(set-default-font "Inconsolata-14")
+(set-default-font "JetBrains Mono-14")
 
 ;; bell
 (setq visible-bell nil
