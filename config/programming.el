@@ -43,3 +43,6 @@
 
 (use-package js-comint
   :ensure t)
+
+(use-package json-mode
+  :ensure t)
