@@ -4,7 +4,10 @@
 (use-package org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)))
+         ("C-c c" . org-capture))
+  :config (progn
+            (setq org-startup-indented t)
+            (setq org-hide-leading-stars t)))
 
 ;; dired
 (use-package dired-x

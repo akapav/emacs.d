@@ -9,8 +9,7 @@
 ;;;(load-theme 'tango-plus)
 
 ;; font
-;;;(set-default-font "Inconsolata-14")
-(set-default-font "JetBrains Mono-14")
+(set-default-font "Jetbrains Mono-12")
 
 ;; bell
 (setq visible-bell nil
