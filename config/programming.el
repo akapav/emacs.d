@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
+;; projectile
+(use-package projectile
+  :ensure t
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+
 ;; compile
 (setq compilation-scroll-output t)
 
