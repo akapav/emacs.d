@@ -21,7 +21,13 @@
   :commands lsp
   :config (progn
             (setq lsp-enable-snippet nil)
-            (require 'lsp-clients)))
+            (require 'lsp-clients)
+            (lsp-register-client
+             (make-lsp-client :new-connection (lsp-tramp-connection "/home/aka/.cargo/bin/rls")
+                              :major-modes '(rust-mode)
+                              :notification-handlers (ht ("window/progress" 'lsp-clients--rust-window-progress))
+                              :remote? t
+                              :server-id 'rls-remote))))
 
 (use-package company-lsp
   :ensure t
