@@ -26,4 +26,5 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; erc
-(use-package znc :ensure t)
+;;; TODO(aka): remove a startup warning
+;;;(use-package znc :ensure t)

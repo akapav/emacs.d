@@ -23,5 +23,6 @@
 ;; load config
 (push "~/.emacs.d/config" load-path)
 (load "general")
+(load "ivycfg")
 (load "programming")
 (load "apps")
