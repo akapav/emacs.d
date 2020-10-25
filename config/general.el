@@ -6,10 +6,11 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (column-number-mode t)
-;;;(load-theme 'tango-plus)
+(fringe-mode 1)
+(load-theme 'tango-dark)
 
 ;; font
-(set-frame-font "Jetbrains Mono-12")
+(set-frame-font "Jetbrains Mono-13")
 
 ;; bell
 (setq visible-bell nil
@@ -44,7 +45,7 @@
    (overwrite-mode
      (set-cursor-color "red"))
    (t
-     (set-cursor-color "black"))))
+     (set-cursor-color "yellow"))))
 
 (add-hook 'post-command-hook 'set-cursor-according-to-mode)
 (blink-cursor-mode 1)
