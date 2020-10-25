@@ -151,13 +151,16 @@
 (show-paren-mode t)
 
 ;; ido
-;;;(use-package ido
-;;;  :init (ido-mode t))
+(use-package ido
+  :init (progn
+          (setq ido-enable-flex-matching t)
+          (setq ido-everywhere t)
+          (ido-mode t)))
 
-;;(use-package smex
-;;;  :ensure t
-;;;  :config (smex-initialize)
-;;;  :bind (("M-x" . smex)))
+(use-package smex
+ :ensure t
+ :config (smex-initialize)
+ :bind (("M-x" . smex)))
 
 ;; grep
 ;; TODO(aka): counsel-rg
