@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
+;; customizations
+(setq custom-file "~/.emacs.d/cust.el")
+(load custom-file t)
+
+;; backups
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
 ;; basic appearance
 (setq inhibit-splash-screen t)
 (menu-bar-mode 0)
@@ -7,10 +14,16 @@
 (scroll-bar-mode 0)
 (column-number-mode t)
 (fringe-mode 1)
-(load-theme 'tango-dark)
+
+;; theme
+;;(load-theme 'tango)
+(use-package modus-themes
+  :straight t
+  :init (modus-themes-load-operandi))
 
 ;; font
 (set-frame-font "Jetbrains Mono-13")
+(setq-default line-spacing 0.2)
 
 ;; bell
 (setq visible-bell nil
@@ -30,6 +43,9 @@
 (put 'suspend-frame 'disabled t)
 (global-set-key [(control z)] 'repeat)
 
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; scratch buffer
 (defun scratch-buffer ()
   "Show or create a scratch buffer."
@@ -45,7 +61,7 @@
    (overwrite-mode
      (set-cursor-color "red"))
    (t
-     (set-cursor-color "yellow"))))
+     (set-cursor-color "black"))))
 
 (add-hook 'post-command-hook 'set-cursor-according-to-mode)
 (blink-cursor-mode 1)
@@ -67,11 +83,11 @@
 (global-set-key [(control tab)] 'other-window)
 
 (use-package windmove
-  :ensure t
+  :straight t
   :config (windmove-default-keybindings 'meta))
 
 (use-package window-numbering
-  :ensure t
+  :straight t
   :config (window-numbering-mode))
 
 ;;
@@ -84,7 +100,7 @@
 
 ;; yank/kill
 (use-package browse-kill-ring
-  :ensure t
+  :straight t
   :bind (("M-y" . browse-kill-ring)))
 
 (defun kill-ring-save-x ()
@@ -132,7 +148,7 @@
   [remap move-beginning-of-line] 'move-beginning-of-line-x)
 
 (use-package avy
-  :ensure t
+  :straight t
   :bind (("M-s" . avy-goto-word-1)))
 
 (global-set-key [(control shift w)] 'electric-buffer-list)
@@ -144,29 +160,40 @@
 
 ;; which key
 (use-package which-key
-  :ensure t
+  :straight t
   :config (which-key-mode t))
 
 ;; paren
 (show-paren-mode t)
 
-;; ido
-(use-package ido
-  :init (progn
-          (setq ido-enable-flex-matching t)
-          (setq ido-everywhere t)
-          (ido-mode t)))
+;; ;; ido
+;; (use-package ido
+;;   :init (progn
+;;           (setq ido-enable-flex-matching t)
+;;           (setq ido-everywhere t)
+;;           (ido-mode t)))
 
+;; smex
+;; smex is used by counsel for lru
 (use-package smex
- :ensure t
- :config (smex-initialize)
- :bind (("M-x" . smex)))
+ :straight t
+ :config (smex-initialize))
+
+(use-package ivy
+  :straight t
+  :init (ivy-mode))
+
+(use-package counsel
+  :straight t
+  :init (counsel-mode)
+  :bind (("M-x" . counsel-M-x)))
 
 ;; grep
 ;; TODO(aka): counsel-rg
 (use-package rg
-  :ensure t
+  :straight t
   :config (rg-enable-default-bindings))
 
-(use-package wgrep
-  :ensure t)
+;; can comment, dependency of rg
+;;(use-package wgrep
+;;  :straight t)

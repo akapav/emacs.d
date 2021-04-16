@@ -1,12 +1,5 @@
-#!/bin/bash
-EMACS_CFG_DIR=`dirname "$0"`
-
-echo "THIS WILL DELETE ~/.emacs.d"
-read -p "ARE YOU SURE (type YES)? " choice
-case "$choice" in
-  YES ) echo "copying $EMACS_CFG_DIR -> ~/.emacs.d";;
-  * ) echo "leaving ...";;
-esac
-
-rm -rf ~/.emacs.d
-cp -r $EMACS_CFG_DIR ~/.emacs.d
+ln -sf `pwd`/init.el ~/.emacs.d/
+mkdir -p ~/.emacs.d/config
+ln -sf `pwd`/config/general.el ~/.emacs.d/config/
+ln -sf `pwd`/config/apps.el ~/.emacs.d/config/
+ln -sf `pwd`/config/programming.el ~/.emacs.d/config/

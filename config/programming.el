@@ -2,50 +2,46 @@
 
 ;; projectile
 (use-package projectile
-  :ensure t
+  :straight t
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode +1))
 
 ;;;(use-package counsel-projectile
-;;;  :ensure t)
+;;;  :straight t)
 
 ;; compile
+(use-package popwin
+  :straight t
+  :config (progn
+            (popwin-mode 1)
+            (push '("*Cargo Check*" :height 20) popwin:special-display-config)))
 (setq compilation-scroll-output t)
 
 ;; company
 (use-package company
-  :ensure t
+  :straight t
   :init (global-company-mode))
 
 ;; lsp
 (use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :config (progn
-            (setq lsp-enable-snippet nil)
-            (require 'lsp-clients)
-            (lsp-register-client
-             (make-lsp-client :new-connection (lsp-tramp-connection "/home/aka/.cargo/bin/rls")
-                              :major-modes '(rust-mode)
-                              :notification-handlers (ht ("window/progress" 'lsp-clients--rust-window-progress))
-                              :remote? t
-                              :server-id 'rls-remote))))
+  :straight t
+  :commands lsp)
 
 (use-package company-lsp
-  :ensure t
+  :straight t
   :commands company-lsp)
 
 ;; rust
 (use-package rust-mode
-  :ensure t
+  :straight t
   :hook (rust-mode . lsp))
 
 (use-package toml-mode
-  :ensure t)
+  :straight t)
 
 (use-package cargo
-  :ensure t
+  :straight t
   :hook ((rust-mode . cargo-minor-mode)
          (toml-mode . cargo-minor-mode)))
 
@@ -58,7 +54,7 @@
 (add-hook 'js-mode-hook #'lsp)
 
 (use-package js-comint
-  :ensure t)
+  :straight t)
 
 (use-package json-mode
-  :ensure t)
+  :straight t)

@@ -10,16 +10,18 @@
             (setq org-hide-leading-stars t)))
 
 ;; dired
-(use-package dired-x
-  :init   (setq dired-dwim-target t)
-  :config (progn
-            (setq dired-omit-files "^\\...+$")
-            (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-            (add-hook 'dired-mode-hook 'auto-revert-mode)))
+;; (require 'dired-x)
+
+;; (use-package dired-x
+;;   :init   (setq dired-dwim-target t)
+;;   :config (progn
+;;             (setq dired-omit-files "^\\...+$")
+;;             (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+;;             (add-hook 'dired-mode-hook 'auto-revert-mode)))
 
 ;; magit
 (use-package magit
-  :ensure t
+  :straight t
   :bind (("C-x g" . magit-status)))
 
 ;; ediff
@@ -27,4 +29,4 @@
 
 ;; erc
 ;;; TODO(aka): remove a startup warning
-;;;(use-package znc :ensure t)
+;;;(use-package znc :straight t)
