@@ -10,11 +10,13 @@
             (setq org-hide-leading-stars t)))
 
 ;; dired
-(add-hook 'dired-mode-hook (lambda ()
-                             (require 'dired-x)
-                             (setq dired-omit-files "\\`[.][^.].*\\'")
-                             (setq dired-dwim-target t)
-                             (dired-omit-mode 1)))
+(use-package dired-x
+  :straight nil
+  :bind (("C-c C-h" . dired-omit-mode))
+  :config (progn
+            (setq dired-omit-files "\\`[.][^.].*\\'")
+            (setq dired-dwim-target t))
+  :hook ((dired-mode . dired-omit-mode)))
 
 ;; magit
 (use-package magit
