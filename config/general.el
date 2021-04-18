@@ -18,7 +18,6 @@
 ;; theme
 ;;(load-theme 'tango)
 (use-package modus-themes
-  :straight t
   :init (modus-themes-load-operandi))
 
 ;; font
@@ -83,11 +82,9 @@
 (global-set-key [(control tab)] 'other-window)
 
 (use-package windmove
-  :straight t
   :config (windmove-default-keybindings 'meta))
 
 (use-package window-numbering
-  :straight t
   :config (window-numbering-mode))
 
 ;;
@@ -100,7 +97,6 @@
 
 ;; yank/kill
 (use-package browse-kill-ring
-  :straight t
   :bind (("M-y" . browse-kill-ring)))
 
 (defun kill-ring-save-x ()
@@ -148,7 +144,6 @@
   [remap move-beginning-of-line] 'move-beginning-of-line-x)
 
 (use-package avy
-  :straight t
   :bind (("M-s" . avy-goto-word-1)))
 
 (global-set-key [(control shift w)] 'electric-buffer-list)
@@ -160,7 +155,6 @@
 
 ;; which key
 (use-package which-key
-  :straight t
   :config (which-key-mode t))
 
 ;; paren
@@ -176,22 +170,18 @@
 ;; smex
 ;; smex is used by counsel for lru
 (use-package smex
- :straight t
  :config (smex-initialize))
 
 (use-package ivy
-  :straight t
   :init (ivy-mode))
 
 (use-package counsel
-  :straight t
   :init (counsel-mode)
   :bind (("M-x" . counsel-M-x)))
 
 ;; grep
 ;; TODO(aka): counsel-rg
 (use-package rg
-  :straight t
   :config (rg-enable-default-bindings))
 
 ;; can comment, dependency of rg
