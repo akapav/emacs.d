@@ -173,41 +173,18 @@
 
 ;; abbrew
 ;;; todo(aka)
-(global-set-key [select] 'dabbrev-expand)
+;;;(global-set-key [select] 'dabbrev-expand)
 ;;;(global-set-key [select] 'hippie-expand)
 
 ;; which key
 (use-package which-key
   :config (which-key-mode t))
 
-;; paren
-(show-paren-mode t)
+;; ripgrep
+(use-package rg
+  :config (rg-enable-default-bindings))
 
-;; ;; ido
-;; (use-package ido
-;;   :init (progn
-;;           (setq ido-enable-flex-matching t)
-;;           (setq ido-everywhere t)
-;;           (ido-mode t)))
-
-
-;; ;; smex
-;; ;; smex is used by counsel for lru
-;; (use-package smex
-;;  :config (smex-initialize))
-
-;; (use-package ivy
-;;   :init (ivy-mode))
-
-;; (use-package counsel
-;;   :init (counsel-mode)
-;;   :bind (("M-x" . counsel-M-x)))
-
-;; ;; grep
-;; ;; TODO(aka): counsel-rg
-;; (use-package rg
-;;   :config (rg-enable-default-bindings))
-
+;; selectrum
 (use-package selectrum
   :init (selectrum-mode +1))
 
@@ -216,7 +193,3 @@
          (selectrum-prescient-mode +1)
          (prescient-persist-mode +1)
          (push 'anchored prescient-filter-method)))
-
-;; can comment, dependency of rg
-;;(use-package wgrep
-;;  :straight t)
