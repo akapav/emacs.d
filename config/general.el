@@ -20,6 +20,21 @@
 (use-package modus-themes
   :init (modus-themes-load-operandi))
 
+(defun highlight-selected-window ()
+  "Highlight selected window with a different background color."
+  (let ((selected-buffer (window-buffer (selected-window))))
+    (walk-windows (lambda (w)
+                    (let ((buff (window-buffer w)))
+                      (let ((bg
+                             (if (eq selected-buffer buff)
+                                 'default
+                               '(:background "#eee"))))
+                          (with-current-buffer buff
+                            (buffer-face-set bg))))))))
+
+(add-hook 'buffer-list-update-hook 'highlight-selected-window)
+(global-hl-line-mode 1)
+
 ;; font
 (defun set-font ()
   (message "set font")
