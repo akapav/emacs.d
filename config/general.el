@@ -190,22 +190,31 @@
 ;;           (setq ido-everywhere t)
 ;;           (ido-mode t)))
 
-;; smex
-;; smex is used by counsel for lru
-(use-package smex
- :config (smex-initialize))
 
-(use-package ivy
-  :init (ivy-mode))
+;; ;; smex
+;; ;; smex is used by counsel for lru
+;; (use-package smex
+;;  :config (smex-initialize))
 
-(use-package counsel
-  :init (counsel-mode)
-  :bind (("M-x" . counsel-M-x)))
+;; (use-package ivy
+;;   :init (ivy-mode))
 
-;; grep
-;; TODO(aka): counsel-rg
-(use-package rg
-  :config (rg-enable-default-bindings))
+;; (use-package counsel
+;;   :init (counsel-mode)
+;;   :bind (("M-x" . counsel-M-x)))
+
+;; ;; grep
+;; ;; TODO(aka): counsel-rg
+;; (use-package rg
+;;   :config (rg-enable-default-bindings))
+
+(use-package selectrum
+  :init (selectrum-mode +1))
+
+(use-package selectrum-prescient
+  :init (progn
+         (selectrum-prescient-mode +1)
+         (prescient-persist-mode +1)))
 
 ;; can comment, dependency of rg
 ;;(use-package wgrep
