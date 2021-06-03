@@ -215,6 +215,8 @@
   :init (progn
          (selectrum-prescient-mode +1)
          (prescient-persist-mode +1)))
+         (prescient-persist-mode +1)
+         (push 'anchored prescient-filter-method)))
 
 ;; can comment, dependency of rg
 ;;(use-package wgrep
