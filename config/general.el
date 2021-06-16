@@ -1,5 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
+;; auth
+(setq auth-sources
+      '((:source "~/.emacs.d/secrets/.authinfo.gpg")))
+
 ;; customizations
 (setq custom-file "~/.emacs.d/cust.el")
 (load custom-file t)
