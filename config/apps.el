@@ -28,3 +28,16 @@
 ;; erc
 ;;; TODO(aka): remove a startup warning
 ;;;(use-package znc :straight t)
+
+(use-package erc
+  :init
+  (progn
+    (setq erc-autojoin-channels-alist
+          '(("libera.chat" "#razmjenavjestina")))
+    (setq erc-prompt-for-nickserv-password nil)))
+
+(defun erc/connect ()
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
+
+(when (daemonp) (erc/connect))
