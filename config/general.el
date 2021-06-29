@@ -89,6 +89,11 @@
    (t
      (set-cursor-color "black"))))
 
+;; parenthesis
+(show-paren-mode 1)
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
+
 ;;(add-hook 'post-command-hook 'set-cursor-according-to-mode)
 (blink-cursor-mode 1)
 (setq blink-cursor-blinks 3)
