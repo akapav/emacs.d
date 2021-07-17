@@ -9,7 +9,7 @@
 
 ;; company
 (use-package company
-  :init (global-company-mode))
+  :init (add-hook 'after-init-hook 'global-company-mode))
 
 ;; flycheck
 (use-package flycheck
