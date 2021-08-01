@@ -20,7 +20,6 @@
 (fringe-mode 1)
 
 ;; theme
-;;(load-theme 'tango)
 (use-package modus-themes
   :init (modus-themes-load-operandi))
 
@@ -180,11 +179,6 @@
 
 (global-set-key [(control shift w)] 'electric-buffer-list)
 
-;; abbrew
-;;; todo(aka)
-;;;(global-set-key [select] 'dabbrev-expand)
-;;;(global-set-key [select] 'hippie-expand)
-
 ;; which key
 (use-package which-key
   :config (which-key-mode t))
@@ -193,16 +187,43 @@
 (use-package rg
   :config (rg-enable-default-bindings))
 
-;; selectrum
-(use-package selectrum
-  :init (selectrum-mode +1))
+;;completions/vertico/orgerless/marginalia
+(use-package vertico
+ :init (vertico-mode))
 
-(use-package selectrum-prescient
-  :init (progn
-         (selectrum-prescient-mode +1)
-         (prescient-persist-mode +1)
-         (push 'anchored prescient-filter-method)))
+(use-package orderless
+  :custom
+  (completion-styles '(initials partial-completion orderless)))
 
-(use-package tramp
+;; add to :custom in orderless
+;; basic completion style for tramp
+;; (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package marginalia
+  :bind
+  (("M-A" . marginalia-cycle)
+   :map minibuffer-local-map
+   ("M-A" . marginalia-cycle))
+  :init (marginalia-mode))
+
+(use-package savehist
+  :init (savehist-mode))
+
+(use-package embark
+  :bind
+  (("C-." . embark-act)
+   ("C-," . embark-dwim))
   :init
-  (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt"))
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+;; TODO: consult
+
+;; TODO: tramp support
+;; tramp
+;; (use-package tramp
+;;   :defer t
+;;   :config (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
+;; TODO: abbrew support
+;; (global-set-key [select] 'dabbrev-expand)
+;; (global-set-key [select] 'hippie-expand)

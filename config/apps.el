@@ -15,7 +15,8 @@
   :bind (("C-c C-h" . dired-omit-mode))
   :config (progn
             (setq dired-omit-files "\\`[.][^.].*\\'")
-            (setq dired-dwim-target t))
+            (setq dired-dwim-target t)
+            (put 'dired-find-alternate-file 'disabled nil))
   :hook ((dired-mode . dired-omit-mode)))
 
 ;; magit

@@ -11,22 +11,18 @@
 (use-package company
   :init (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package eglot)
+;;
+(use-package eglot
+  :custom (tab-width 4))
 
+(defun find-projectile-project (dir)
+  (let ((root (locate-dominating-file dir ".projectile")))
+    (when root `(vc . ,root))))
+
+(add-hook 'project-find-functions 'find-projectile-project)
+
+;;
 (use-package rust-mode
   :hook (rust-mode . eglot-ensure))
 
 (use-package toml-mode)
-
-;;(use-package cargo
-;;  :hook ((rust-mode . cargo-minor-mode)
-;;         (toml-mode . cargo-minor-mode)))
-
-;; js
-;;
-;; npm install -g --save typescript
-;; npm install -g typescript-language-server
-;;
-;;(add-hook 'js-mode-hook #'lsp)
-;;(use-package js-comint)
-;;(use-package json-mode)
