@@ -41,3 +41,37 @@
   (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
 
 (when (daemonp) (erc/connect))
+
+;; mu4e
+(setq user-mail-address "aka@gensym.net"
+      user-full-name "alan pavičić")
+
+(use-package mu4e
+  :straight nil
+  :init
+  (progn
+    (setq
+     mue4e-headers-skip-duplicates  t
+     mu4e-view-show-images t
+     mu4e-view-show-addresses t
+     mu4e-compose-format-flowed nil
+     mu4e-date-format "%y/%m/%d"
+     mu4e-headers-date-format "%Y/%m/%d"
+     mu4e-change-filenames-when-moving t
+     mu4e-attachments-dir "~/dl"
+
+     mu4e-maildir       "~/mail/fastmail
+     mu4e-refile-folder "/Archive"
+     mu4e-sent-folder   "/Sent"
+     mu4e-drafts-folder "/Drafts"
+     mu4e-trash-folder  "/Trash")
+
+    (setq mu4e-get-mail-command  "mbsync -a")
+
+    (setq
+     smtpmail-debug-info t
+     message-send-mail-function 'smtpmail-send-it
+     smtpmail-default-smtp-server "smtp.fastmail.com"
+     smtpmail-smtp-server         "smtp.fastmail.com"
+     smtpmail-stream-type 'ssl
+     smtpmail-smtp-service 465)))
