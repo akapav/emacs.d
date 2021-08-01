@@ -202,3 +202,7 @@
          (selectrum-prescient-mode +1)
          (prescient-persist-mode +1)
          (push 'anchored prescient-filter-method)))
+
+(use-package tramp
+  :init
+  (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt"))
