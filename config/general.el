@@ -90,6 +90,8 @@
 
 ;; parenthesis
 (show-paren-mode 1)
+(customize-set-variable 'show-paren-style 'expression)
+
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
 
