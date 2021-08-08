@@ -42,3 +42,7 @@
   (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
 
 (when (daemonp) (erc/connect))
+
+;; gemini
+(use-package elpher)
+(use-package gemini-mode)
