@@ -195,7 +195,7 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(initials partial-completion orderless)))
+  (completion-styles '(partial-completion orderless)))
 
 ;; add to :custom in orderless
 ;; basic completion style for tramp
