@@ -195,7 +195,8 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(partial-completion orderless)))
+  (completion-styles '(partial-completion orderless))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;; add to :custom in orderless
 ;; basic completion style for tramp

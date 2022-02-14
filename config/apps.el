@@ -43,6 +43,13 @@
 
 (when (daemonp) (erc/connect))
 
+;; tramp
+(use-package tramp
+  :init
+  (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt")
+  :config
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
 ;; gemini
 (use-package elpher)
 (use-package gemini-mode)
