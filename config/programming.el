@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+;; project
+(use-package project)
+
 ;; compile
 (use-package popwin
   :config (progn
