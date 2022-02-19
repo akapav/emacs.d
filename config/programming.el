@@ -14,8 +14,10 @@
 (use-package company
   :init (add-hook 'after-init-hook 'global-company-mode))
 
-;; rustic
+;; rust
 (use-package flycheck)
+(use-package rust-mode
+  :hook (rust-mode . lsp))
 (use-package lsp-mode
   :config
   (with-eval-after-load 'lsp-rust
@@ -33,11 +35,7 @@
                                         (with-lsp-workspace workspace
                                           (lsp--set-configuration
                                            (lsp-configuration-section "rust"))))
-                      :server-id 'rls))))
-
-(use-package rustic)
-
-
-
+                      :server-id 'rls)))
+  :commands lsp)
 
 (use-package toml-mode)
