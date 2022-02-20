@@ -23,6 +23,16 @@
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
+;; eshell
+(use-package eshell
+  :init
+  (progn
+    (require 'em-smart)
+    (setq eshell-where-to-jump 'begin
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t))
+  :hook (eshell-mode . eshell-smart-initialize))
+
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
