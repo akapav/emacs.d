@@ -14,10 +14,14 @@
 (use-package company
   :init (add-hook 'after-init-hook 'global-company-mode))
 
+;; flycheck
+(use-package flycheck
+  :init (global-flycheck-mode))
+
 ;; rust
-(use-package flycheck)
 (use-package rust-mode
   :hook (rust-mode . lsp))
+
 (use-package lsp-mode
   :config
   (with-eval-after-load 'lsp-rust
