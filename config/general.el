@@ -219,13 +219,27 @@
   :init
   (setq prefix-help-command #'embark-prefix-help-command))
 
-;; TODO: consult
+;; hydra
+(use-package hydra
+  :init
+  (progn
+    (defhydra hydra-navigate (:hint nil)
+"
+^Buffer^            ^Page^              ^Function^
+^^^^^^^^----------------------------------------------------
+_4_: beginning      _r_: up             _f_: up
+_5_: end            _t_: down           _g_: down
+"
+      ("4" beginning-of-buffer)
+      ("5" end-of-buffer)
+      ("r" backward-page)
+      ("t" forward-page)
+      ("f" beginning-of-defun)
+      ("g" end-of-defun)
+      ("c" nil "cancel" :color red)))
+  :bind ("M-j" . hydra-navigate/body))
 
-;; TODO: tramp support
-;; tramp
-;; (use-package tramp
-;;   :defer t
-;;   :config (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+;; TODO: consult
 
 ;; TODO: abbrew support
 ;; (global-set-key [select] 'dabbrev-expand)
