@@ -7,7 +7,8 @@
          ("C-c c" . org-capture))
   :config (progn
             (setq org-startup-indented t)
-            (setq org-hide-leading-stars t)))
+            (setq org-hide-leading-stars t)
+            (setq org-cycle-separator-lines 0)))
 
 ;; dired
 (use-package dired-x
