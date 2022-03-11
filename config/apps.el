@@ -24,6 +24,8 @@
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
+(use-package forge :after magit)
+
 ;; eshell
 (use-package eshell
   :init
