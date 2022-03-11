@@ -227,15 +227,15 @@
 "
 ^Buffer^            ^Page^              ^Function^
 ^^^^^^^^----------------------------------------------------
-_4_: beginning      _r_: up             _f_: up
-_5_: end            _t_: down           _g_: down
+_3_: beginning      _e_: up             _d_: up
+_4_: end            _r_: down           _f_: down
 "
-      ("4" beginning-of-buffer)
-      ("5" end-of-buffer)
-      ("r" backward-page)
-      ("t" forward-page)
-      ("f" beginning-of-defun)
-      ("g" end-of-defun)
+      ("3" beginning-of-buffer)
+      ("4" end-of-buffer)
+      ("e" backward-page)
+      ("r" forward-page)
+      ("d" beginning-of-defun)
+      ("f" end-of-defun)
       ("c" nil "cancel" :color red)))
   :bind ("M-j" . hydra-navigate/body))
 
