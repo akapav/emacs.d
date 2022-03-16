@@ -232,8 +232,8 @@ _4_: end            _r_: down           _f_: down
 "
       ("3" beginning-of-buffer)
       ("4" end-of-buffer)
-      ("e" backward-page)
-      ("r" forward-page)
+      ("e" scroll-down)
+      ("r" scroll-up)
       ("d" beginning-of-defun)
       ("f" end-of-defun)
       ("c" nil "cancel" :color red)))
