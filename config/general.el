@@ -31,7 +31,8 @@
                       (let ((bg
                              (if (eq selected-buffer buff)
                                  'default
-                               '(:background "#eee"))))
+                               `(:background
+                                 ,(face-background 'modus-themes-hl-line)))))
                           (with-current-buffer buff
                             (buffer-face-set bg))))))))
 
