@@ -6,6 +6,7 @@
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture))
   :config (progn
+            (require 'ox-md)
             (setq org-startup-indented t)
             (setq org-hide-leading-stars t)
             (setq org-cycle-separator-lines 0)))
