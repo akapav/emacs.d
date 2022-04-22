@@ -8,6 +8,12 @@
 (setq custom-file "~/.emacs.d/cust.el")
 (load custom-file t)
 
+;; path
+(use-package exec-path-from-shell
+  :init (when (or (memq window-system '(mac ns x))
+                  (daemonp))
+          (exec-path-from-shell-initialize)))
+
 ;; backups
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
