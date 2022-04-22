@@ -13,7 +13,7 @@
 
 ;; basic appearance
 (setq inhibit-splash-screen t)
-(menu-bar-mode 0)
+(unless (eq system-type 'darwin) (menu-bar-mode 0))
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (column-number-mode t)
