@@ -18,6 +18,7 @@
 (scroll-bar-mode 0)
 (column-number-mode t)
 (fringe-mode 1)
+(pixel-scroll-precision-mode)
 
 ;; theme
 (use-package modus-themes
@@ -38,18 +39,6 @@
 
 (add-hook 'buffer-list-update-hook 'highlight-selected-window)
 (global-hl-line-mode 1)
-
-;; font
-(defun set-font ()
-  (message "set font")
-  (set-frame-font "Jetbrains Mono-13")
-  (setq-default line-spacing 0.2))
-
-(set-font)
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (when (display-graphic-p frame)
-              (with-selected-frame frame (set-font)))))
 
 ;; bell
 (setq visible-bell nil
