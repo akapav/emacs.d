@@ -4,6 +4,9 @@
 (setq auth-sources
       '((:source "~/.emacs.d/secrets/.authinfo.gpg")))
 
+;; warning
+(setq warning-minimum-level :emergency)
+
 ;; customizations
 (setq custom-file "~/.emacs.d/cust.el")
 (load custom-file t)
