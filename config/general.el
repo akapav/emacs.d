@@ -40,16 +40,38 @@
 (global-hl-line-mode 1)
 
 ;; font
+(defvar *default-font* "Jetbrains Mono-13")
+(defvar *default-line-spacing* 0.2)
+
+(defvar *smaller-font* "Jetbrains Mono-12")
+(defvar *smaller-line-spacing* 0.1)
+
+(setq current-font *default-font*)
+(setq current-line-spacing *default-line-spacing*)
+
 (defun set-font ()
   (message "set font")
-  (set-frame-font "Jetbrains Mono-13")
-  (setq-default line-spacing 0.2))
+  (set-frame-font current-font)
+  (setq-default line-spacing current-line-spacing))
 
 (set-font)
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (when (display-graphic-p frame)
               (with-selected-frame frame (set-font)))))
+
+(defun default-font ()
+  (interactive)
+  (setq current-font *default-font*)
+  (setq current-line-spacing *default-line-spacing*)
+  (set-font))
+
+(defun smaller-font ()
+  (interactive)
+  (setq current-font *smaller-font*)
+  (setq current-line-spacing *smaller-line-spacing*)
+  (set-font))
+
 
 ;; bell
 (setq visible-bell nil
