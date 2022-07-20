@@ -94,6 +94,10 @@
 (put 'suspend-frame 'disabled t)
 (global-set-key [(control z)] 'repeat)
 
+;; mark
+(use-package visible-mark
+  :config (global-visible-mark-mode 1))
+
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
