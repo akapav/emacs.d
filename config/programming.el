@@ -10,36 +10,19 @@
             (push '("*compilation*" :height 30) popwin:special-display-config)))
 (setq compilation-scroll-output t)
 
-;; company
-(use-package company
-  :init (add-hook 'after-init-hook 'global-company-mode))
-
-;; flycheck
-(use-package flycheck
-  :init (global-flycheck-mode))
-
 ;; rust
 (use-package rust-mode
-  :hook (rust-mode . lsp))
+  :hook (rust-mode . eglot-ensure))
 
-(use-package lsp-mode
-  :config
-  (with-eval-after-load 'lsp-rust
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-tramp-connection (lambda () lsp-rust-rls-server-command))
-                      :major-modes '(rust-mode rustic-mode)
-                      :remote? t
-                      :priority (if (eq lsp-rust-server 'rls) 1 -1)
-                      :initialization-options '((omitInitBuild . t)
-                                                (cmdRun . t))
-                      :notification-handlers (ht ("window/progress" 'lsp-clients--rust-window-progress))
-                      :action-handlers (ht ("rls.run" 'lsp-rust--rls-run))
-                      :library-folders-fn (lambda (_workspace) lsp-rust-library-directories)
-                      :initialized-fn (lambda (workspace)
-                                        (with-lsp-workspace workspace
-                                          (lsp--set-configuration
-                                           (lsp-configuration-section "rust"))))
-                      :server-id 'rls)))
-  :commands lsp)
+(use-package eglot)
+
+(defun rust-check-x (orig-rust-check)
+  "Run chargo check in /tmp/cargo."
+  (interactive)
+  (let ((process-environment (cons "CARGO_TARGET_DIR=/tmp/cargo" process-environment)))
+    (call-interactively orig-rust-check)))
+
+(advice-add 'rust-check :around #'rust-check-x)
+
 
 (use-package toml-mode)
