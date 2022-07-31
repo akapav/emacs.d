@@ -219,6 +219,11 @@
 (use-package rg
   :config (rg-enable-default-bindings))
 
+;; corfu
+(use-package corfu
+  :init (global-corfu-mode))
+(set-face-attribute 'corfu-default nil :height 130)
+
 ;;completions/vertico/orgerless/marginalia
 (use-package vertico
  :init (vertico-mode))
