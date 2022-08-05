@@ -49,8 +49,8 @@
 (defvar *smaller-font* "Jetbrains Mono-12")
 (defvar *smaller-line-spacing* 0.1)
 
-(setq current-font *default-font*)
-(setq current-line-spacing *default-line-spacing*)
+(setq current-font *smaller-font*)
+(setq current-line-spacing *smaller-line-spacing*)
 
 (defun set-font ()
   (message "set font")
@@ -222,7 +222,9 @@
 ;; corfu
 (use-package corfu
   :init (global-corfu-mode))
-(set-face-attribute 'corfu-default nil :height 130)
+(set-face-attribute 'corfu-default nil :height 121) ;12*10*1.1 - hardcoded for smaller font and line spacing
+(setq tab-always-indent 'complete)
+(setq completion-cycle-threshold 3)
 
 ;;completions/vertico/orgerless/marginalia
 (use-package vertico

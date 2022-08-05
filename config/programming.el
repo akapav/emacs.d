@@ -24,5 +24,7 @@
 
 (advice-add 'rust-check :around #'rust-check-x)
 
+;;(make-variable-buffer-local 'compilation-search-path)
+;;(push  "/home/aka/devel/gensym/tvbeat/repos/ae/src" compilation-search-path)
 
 (use-package toml-mode)
