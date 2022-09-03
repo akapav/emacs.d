@@ -219,12 +219,9 @@
 (use-package rg
   :config (rg-enable-default-bindings))
 
-;; corfu
-(use-package corfu
-  :init (global-corfu-mode))
-(set-face-attribute 'corfu-default nil :height 121) ;12*10*1.1 - hardcoded for smaller font and line spacing
-(setq tab-always-indent 'complete)
-(setq completion-cycle-threshold 3)
+;; company
+(use-package company
+  :init (add-hook 'after-init-hook 'global-company-mode))
 
 ;;completions/vertico/orgerless/marginalia
 (use-package vertico
