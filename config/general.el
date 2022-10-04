@@ -175,6 +175,14 @@
 (define-key (current-global-map) [remap kill-ring-save] 'kill-ring-save-x)
 (define-key (current-global-map) [remap kill-region   ] 'kill-region-x   )
 
+(defun kill-eol-save ()
+  "Save to the end of line as if killed, but don't kill it."
+  (interactive)
+  (let ((end (save-excursion (end-of-visible-line) (point))))
+    (kill-ring-save (point) end)))
+
+(define-key (current-global-map) [remap kill-sentence] 'kill-eol-save)
+
 (delete-selection-mode 1)
 
 ;; whitespace
