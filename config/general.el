@@ -135,9 +135,9 @@
   (interactive)
   (unwind-protect
       (progn
-        (linum-mode 1)
+        (display-line-numbers-mode 1)
         (call-interactively orig-goto-line))
-    (linum-mode -1)))
+    (display-line-numbers-mode -1)))
 
 (advice-add 'goto-line :around #'goto-line-x)
 
