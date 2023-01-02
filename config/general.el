@@ -23,8 +23,8 @@
 (fringe-mode 1)
 
 ;; theme
-(use-package modus-themes
-  :init (modus-themes-load-operandi))
+;;(use-package modus-themes
+;;  :init (modus-themes-load-operandi))
 
 (defun highlight-selected-window ()
   "Highlight selected window with a different background color."
@@ -35,7 +35,7 @@
                              (if (eq selected-buffer buff)
                                  'default
                                `(:background
-                                 ,(face-background 'modus-themes-hl-line)))))
+                                 ,(face-background 'hl-line)))))
                           (with-current-buffer buff
                             (buffer-face-set bg))))))))
 
@@ -43,38 +43,19 @@
 (global-hl-line-mode 1)
 
 ;; font
-(defvar *default-font* "Jetbrains Mono-13")
-(defvar *default-line-spacing* 0.2)
-
-(defvar *smaller-font* "Jetbrains Mono-12")
-(defvar *smaller-line-spacing* 0.1)
-
-(setq current-font *smaller-font*)
-(setq current-line-spacing *smaller-line-spacing*)
+(defvar *default-font* "Jetbrains Mono-12")
+(defvar *default-line-spacing* 0.1)
 
 (defun set-font ()
   (message "set font")
-  (set-frame-font current-font)
-  (setq-default line-spacing current-line-spacing))
+  (set-frame-font *default-font*)
+  (setq-default line-spacing *default-line-spacing*))
 
 (set-font)
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (when (display-graphic-p frame)
               (with-selected-frame frame (set-font)))))
-
-(defun default-font ()
-  (interactive)
-  (setq current-font *default-font*)
-  (setq current-line-spacing *default-line-spacing*)
-  (set-font))
-
-(defun smaller-font ()
-  (interactive)
-  (setq current-font *smaller-font*)
-  (setq current-line-spacing *smaller-line-spacing*)
-  (set-font))
-
 
 ;; bell
 (setq visible-bell nil
@@ -85,10 +66,6 @@
 
 ;; mouse scroll
 (mouse-wheel-mode t)
-
-;; zoom in/out
-(global-set-key [C-mouse-4] 'text-scale-increase)
-(global-set-key [C-mouse-5] 'text-scale-decrease)
 
 ;; suspend -> repeat
 (put 'suspend-frame 'disabled t)
@@ -118,16 +95,16 @@
    (t
      (set-cursor-color "black"))))
 
+(add-hook 'post-command-hook 'set-cursor-according-to-mode)
+(blink-cursor-mode 1)
+(setq blink-cursor-blinks 3)
+
 ;; parenthesis
 (show-paren-mode 1)
-(customize-set-variable 'show-paren-style 'expression)
+(customize-set-variable 'show-paren-style 'mixed)
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
-
-;;(add-hook 'post-command-hook 'set-cursor-according-to-mode)
-(blink-cursor-mode 1)
-(setq blink-cursor-blinks 3)
 
 ;; line numbers
 (defun goto-line-x (orig-goto-line)
@@ -286,3 +263,71 @@ _4_: end            _r_: down           _f_: down
 ;; TODO: abbrew support
 ;; (global-set-key [select] 'dabbrev-expand)
 ;; (global-set-key [select] 'hippie-expand)
+
+;; org-mode
+(use-package org
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture))
+  :config (progn
+            (require 'ox-md)
+            (setq org-startup-indented t)
+            (setq org-hide-leading-stars t)
+            (setq org-cycle-separator-lines 0)))
+
+;; dired
+(use-package dired-x
+  :straight nil
+  :bind (("C-c C-h" . dired-omit-mode))
+  :config (progn
+            (setq dired-omit-files "\\`[.][^.].*\\'")
+            (setq dired-dwim-target t)
+            (put 'dired-find-alternate-file 'disabled nil))
+  :hook ((dired-mode . dired-omit-mode)))
+
+;; magit
+(use-package magit
+  :bind (("C-x g" . magit-status)))
+
+(use-package forge :after magit)
+
+;; eshell
+(use-package eshell
+  :init
+  (progn
+    (require 'em-smart)
+    (setq eshell-where-to-jump 'begin
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t))
+  :hook (eshell-mode . eshell-smart-initialize))
+
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+;; erc
+;;; TODO(aka): remove a startup warning
+;;;(use-package znc :straight t)
+
+(use-package erc
+  :init
+  (progn
+    (setq erc-autojoin-channels-alist
+          '(("libera.chat" "#razmjenavjestina")))
+    (setq erc-prompt-for-nickserv-password nil)))
+
+(defun erc/connect ()
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
+
+(when (daemonp) (erc/connect))
+
+;; tramp
+;; (use-package tramp
+;;   :init
+;;   (autoload #'tramp-register-crypt-file-name-handler "tramp-crypt")
+;;   :config
+;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
+;; gemini
+;; (use-package elpher)
+;; (use-package gemini-mode)

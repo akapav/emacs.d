@@ -1,7 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
-;; project
-(use-package project)
+;; tree sitter
+;; use script here to fetch languages definitions
+;; git@github.com:casouri/tree-sitter-module.git
+(setq treesit-extra-load-path '("~/devel/3rd/tree-sitter-module/dist/"))
 
 ;; compile
 (use-package popwin
@@ -11,14 +13,14 @@
 (setq compilation-scroll-output t)
 
 ;; rust
-(use-package rust-mode
-  :hook (rust-mode . eglot-ensure))
+(use-package rust-mode)
 
 ;;
 
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
-         (c++-mode . eglot-ensure))
+         (c++-mode . eglot-ensure)
+         (rust-mode . eglot-ensure)))
   :config (progn
             (add-to-list 'eglot-server-programs
              '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))

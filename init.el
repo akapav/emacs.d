@@ -22,5 +22,4 @@
 ;; load the config
 (push "~/.emacs.d/config" load-path)
 (load "general")
-(load "apps")
 (load "programming")
