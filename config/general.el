@@ -22,10 +22,7 @@
 (column-number-mode t)
 (fringe-mode 1)
 
-;; theme
-;;(use-package modus-themes
-;;  :init (modus-themes-load-operandi))
-
+;; highlight active buffer
 (defun highlight-selected-window ()
   "Highlight selected window with a different background color."
   (let ((selected-buffer (window-buffer (selected-window))))
@@ -34,12 +31,13 @@
                       (let ((bg
                              (if (eq selected-buffer buff)
                                  'default
-                               `(:background
-                                 ,(face-background 'hl-line)))))
+                               `(:background ,(face-attribute 'mode-line-inactive :background)))))
                           (with-current-buffer buff
                             (buffer-face-set bg))))))))
 
 (add-hook 'buffer-list-update-hook 'highlight-selected-window)
+
+;; highlight line
 (global-hl-line-mode 1)
 
 ;; font
