@@ -1,69 +1,67 @@
 ;; -*- lexical-binding: t; -*-
 
-;; auth
-(setq auth-sources
-      '((:source "~/.emacs.d/secrets/.authinfo.gpg")))
+(use-package emacs
+  :init
+  (setq
+   ;;; personal information
+   user-full-name "alan pavičić"
+   user-mail-address "aka@gensym.net"
 
-;; warning
-(setq warning-minimum-level :emergency)
+   ;;; auth
+   auth-sources
+   '((:source "~/.emacs.d/secrets/.authinfo.gpg"))
 
-;; customizations
-(setq custom-file "~/.emacs.d/cust.el")
-(load custom-file t)
+   ;;; warnings
+   warning-minimum-level :emergency
 
-;; backups
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+   ;;;
+   select-enable-clipboard t
 
-;; basic appearance
-(setq inhibit-splash-screen t)
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(column-number-mode t)
-(fringe-mode 1)
+   ;;; backups
+   backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-;; highlight active buffer
-(defun highlight-selected-window ()
-  "Highlight selected window with a different background color."
-  (let ((selected-buffer (window-buffer (selected-window))))
-    (walk-windows (lambda (w)
-                    (let ((buff (window-buffer w)))
-                      (let ((bg
-                             (if (eq selected-buffer buff)
-                                 'default
-                               `(:background ,(face-attribute 'mode-line-inactive :background)))))
+  ;;; basic appereance
+  (setq inhibit-splash-screen t
+        visible-bell nil
+        ring-bell-function (lambda nil))
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (column-number-mode t)
+  (fringe-mode 1)
+  (global-hl-line-mode 1)
+  (mouse-wheel-mode t)
+
+  ;;; customizations
+  (setq custom-file "~/.emacs.d/cust.el")
+  (load custom-file t))
+
+(use-package emacs
+  :init
+  ;;; highlight active buffer
+  (defun highlight-selected-window ()
+    "Highlight selected window with a different background color."
+    (let ((selected-buffer (window-buffer (selected-window))))
+      (walk-windows (lambda (w)
+                      (let ((buff (window-buffer w)))
+                        (let ((bg
+                               (if (eq selected-buffer buff)
+                                   'default
+                                 `(:background
+                                   ,(face-attribute
+                                     'mode-line-inactive :background)))))
                           (with-current-buffer buff
                             (buffer-face-set bg))))))))
 
-(add-hook 'buffer-list-update-hook 'highlight-selected-window)
+  :hook (buffer-list-update .  highlight-selected-window))
 
-;; highlight line
-(global-hl-line-mode 1)
+(use-package emacs
+  :custom-face
+  (default ((nil (:family "Jetbrains Mono" :height 120))))
 
-;; font
-(defvar *default-font* "Jetbrains Mono-12")
-(defvar *default-line-spacing* 0.1)
+  :init
+  (setq-default line-spacing 0.1))
 
-(defun set-font ()
-  (message "set font")
-  (set-frame-font *default-font*)
-  (setq-default line-spacing *default-line-spacing*))
-
-(set-font)
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (when (display-graphic-p frame)
-              (with-selected-frame frame (set-font)))))
-
-;; bell
-(setq visible-bell nil
-      ring-bell-function (lambda nil))
-
-;; x clipboard
-(setq select-enable-clipboard t)
-
-;; mouse scroll
-(mouse-wheel-mode t)
 
 ;; suspend -> repeat
 (put 'suspend-frame 'disabled t)
