@@ -1,78 +1,62 @@
 ;; -*- lexical-binding: t; -*-
 
-(use-package emacs
-  :init
-  (setq
-   ;;; personal information
-   user-full-name "alan pavičić"
-   user-mail-address "aka@gensym.net"
+;; personal information
+(setq
+ user-full-name "alan pavičić"
+ user-mail-address "aka@gensym.net"
 
-   ;;; auth
-   auth-sources
-   '((:source "~/.emacs.d/secrets/.authinfo.gpg"))
+ auth-sources
+ '((:source "~/.emacs.d/secrets/.authinfo.gpg")))
 
-   ;;; warnings
-   warning-minimum-level :emergency
-
-   ;;;
-   select-enable-clipboard t
-
-   ;;; backups
-   backup-directory-alist '(("." . "~/.emacs.d/backups")))
-
-  ;;; basic appereance
-  (setq inhibit-splash-screen t
-        visible-bell nil
-        ring-bell-function (lambda nil))
-  (menu-bar-mode 0)
-  (tool-bar-mode 0)
-  (scroll-bar-mode 0)
-  (column-number-mode t)
-  (fringe-mode 1)
-  (global-hl-line-mode 1)
-  (mouse-wheel-mode t)
-
-  ;;; customizations
-  (setq custom-file "~/.emacs.d/cust.el")
-  (load custom-file t))
-
-(use-package emacs
-  :init
-  ;;; highlight active buffer
-  (defun highlight-selected-window ()
-    "Highlight selected window with a different background color."
-    (let ((selected-buffer (window-buffer (selected-window))))
-      (walk-windows (lambda (w)
-                      (let ((buff (window-buffer w)))
-                        (let ((bg
-                               (if (eq selected-buffer buff)
-                                   'default
-                                 `(:background
-                                   ,(face-attribute
-                                     'mode-line-inactive :background)))))
-                          (with-current-buffer buff
-                            (buffer-face-set bg))))))))
-
-  :hook (buffer-list-update .  highlight-selected-window))
-
-(use-package emacs
-  :custom-face
-  (default ((nil (:family "Jetbrains Mono" :height 120))))
-
-  :init
-  (setq-default line-spacing 0.1))
-
+;; basic bahaviour
+(setq
+ warning-minimum-level :emergency
+ select-enable-clipboard t
+ backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 ;; suspend -> repeat
 (put 'suspend-frame 'disabled t)
 (global-set-key [(control z)] 'repeat)
 
-;; mark
-(use-package visible-mark
-  :config (global-visible-mark-mode 1))
+;; customizations
+(setq custom-file "~/.emacs.d/cust.el")
+(load custom-file t)
 
-;; ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; appereance
+(setq inhibit-splash-screen t
+      visible-bell nil
+      ring-bell-function (lambda nil))
+
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(column-number-mode t)
+(fringe-mode 1)
+(global-hl-line-mode 1)
+(mouse-wheel-mode t)
+
+;; face
+(face-spec-set 'default '((nil (:family "Jetbrains Mono" :height 120))))
+(setq-default line-spacing 0.1)
+
+;; highlight selected window
+(defun highlight-selected-window ()
+  "Highlight selected window with a different background color."
+  (let ((selected-buffer (window-buffer (selected-window))))
+    (walk-windows (lambda (w)
+                    (let ((buff (window-buffer w)))
+                      (let ((bg
+                             (if (eq selected-buffer buff)
+                                 'default
+                               `(:background
+                                 ,(face-attribute
+                                   'mode-line-inactive :background)))))
+                        (with-current-buffer buff
+                          (buffer-face-set bg))))))))
+(add-hook 'buffer-list-update-hook 'highlight-selected-window)
+
+;; buffers
+(global-set-key [(control x) (control b)] 'ibuffer)
 
 ;; scratch buffer
 (defun scratch-buffer ()
@@ -81,7 +65,7 @@
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
 
-;; carret
+;; caret
 (defun set-cursor-according-to-mode ()
  (cond
    (buffer-read-only
@@ -99,9 +83,6 @@
 (show-paren-mode 1)
 (customize-set-variable 'show-paren-style 'mixed)
 
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)))
-
 ;; line numbers
 (defun goto-line-x (orig-goto-line)
   "Display line number on interactive goto-line."
@@ -117,6 +98,10 @@
 ;;window move
 (global-set-key [(control tab)] 'other-window)
 
+;;
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
+
 (use-package windmove
   :config (windmove-default-keybindings 'meta))
 
@@ -131,10 +116,6 @@
        (list (line-beginning-position) (line-end-position)))))
     (apply fn bounds)))
 
-;; yank/kill
-(use-package browse-kill-ring
-  :bind (("M-y" . browse-kill-ring)))
-
 (defun kill-ring-save-x ()
   "Copy region or line."
   (interactive)
@@ -147,6 +128,13 @@
 
 (define-key (current-global-map) [remap kill-ring-save] 'kill-ring-save-x)
 (define-key (current-global-map) [remap kill-region   ] 'kill-region-x   )
+
+(use-package visible-mark
+  :config (global-visible-mark-mode 1))
+
+;; yank/kill
+(use-package browse-kill-ring
+  :bind (("M-y" . browse-kill-ring)))
 
 (defun kill-eol-save ()
   "Save to the end of line as if killed, but don't kill it."
