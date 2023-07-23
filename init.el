@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t; -*-
 
+;; fix
+(setq native-comp-deferred-compilation-deny-list nil)
+
 ;; setup straight.el
 (setq straight-use-package-by-default t
       package-enable-at-startup nil)
