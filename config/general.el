@@ -36,8 +36,7 @@
 (mouse-wheel-mode t)
 
 ;; face
-(face-spec-set 'default '((nil (:family "Jetbrains Mono" :height 120))))
-(setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :height 120)
 
 ;; highlight selected window
 (defun highlight-selected-window ()
