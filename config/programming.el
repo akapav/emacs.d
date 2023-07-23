@@ -10,6 +10,7 @@
   :config (progn
             (popwin-mode 1)
             (push '("*compilation*" :height 30) popwin:special-display-config)))
+
 (setq compilation-scroll-output t)
 
 ;; rust
@@ -20,7 +21,7 @@
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
-         (rust-mode . eglot-ensure)))
+         (rust-mode . eglot-ensure))
   :config (progn
             (add-to-list 'eglot-server-programs
              '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
@@ -37,7 +38,7 @@
   "Run chargo check in /tmp/cargo."
   (interactive)
   (let* ((envs '("CARGO_TARGET_DIR=/home/aka/tmp/cargo"
-                 "CARGO_BUILD_JOBS=8"))
+                 "CARGO_BUILD_JOBS=12"))
          (process-environment (append envs process-environment)))
     (call-interactively orig-rust-check)))
 
