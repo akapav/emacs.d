@@ -22,6 +22,7 @@
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (rust-mode . eglot-ensure))
+  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider))
   :config (progn
             (add-to-list 'eglot-server-programs
              '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
