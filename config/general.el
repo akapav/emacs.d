@@ -288,6 +288,13 @@ _4_: end            _r_: down           _f_: down
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+;; chatgpt
+(use-package chatgpt-shell
+  :ensure t
+  :custom
+  ((chatgpt-shell-openai-key
+    (lambda () (auth-source-pick-first-password :host "api.openai.com")))))
+
 ;; erc
 ;;; TODO(aka): remove a startup warning
 ;;;(use-package znc :straight t)
