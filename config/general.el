@@ -34,6 +34,7 @@
 (fringe-mode 1)
 (global-hl-line-mode 1)
 (mouse-wheel-mode t)
+(load-theme 'modus-vivendi)
 
 ;; face
 (set-face-attribute 'default nil :height 120)
@@ -74,7 +75,7 @@
    (t
      (set-cursor-color "black"))))
 
-(add-hook 'post-command-hook 'set-cursor-according-to-mode)
+;; (add-hook 'post-command-hook 'set-cursor-according-to-mode)
 (blink-cursor-mode 1)
 (setq blink-cursor-blinks 3)
 
