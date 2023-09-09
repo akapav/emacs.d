@@ -264,6 +264,7 @@ _4_: end            _r_: down           _f_: down
   :bind (("C-c C-h" . dired-omit-mode))
   :config (progn
             (setq dired-omit-files "\\`[.][^.].*\\'")
+            (setq dired-listing-switches "-alh")
             (setq dired-dwim-target t)
             (put 'dired-find-alternate-file 'disabled nil))
   :hook ((dired-mode . dired-omit-mode)))
