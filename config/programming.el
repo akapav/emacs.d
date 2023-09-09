@@ -17,7 +17,6 @@
 (use-package rust-mode)
 
 ;;
-
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
@@ -33,6 +32,10 @@
             (cl-defmethod eglot-initialization-options ((server eglot-deno))
               "Passes through required deno initialization options"
               (list :enable t :lint t))))
+
+;; just
+(use-package justl)
+(use-package just-mode)
 
 ;;
 (defun rust-check-x (orig-rust-check)
@@ -50,5 +53,4 @@
 
 
 (use-package typescript-mode)
-
 (use-package toml-mode)
