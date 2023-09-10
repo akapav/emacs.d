@@ -1,10 +1,5 @@
 ;; -*- lexical-binding: t; -*-
 
-;; tree sitter
-;; use script here to fetch languages definitions
-;; git@github.com:casouri/tree-sitter-module.git
-(setq treesit-extra-load-path '("~/devel/3rd/tree-sitter-module/dist/"))
-
 ;; compile
 (use-package popwin
   :config (progn
@@ -14,43 +9,42 @@
 (setq compilation-scroll-output t)
 
 ;; rust
-(use-package rust-mode)
+(use-package rust-ts-mode
+  :bind (("C-c C-k" . cargo-transient-check))
+  :mode (("\\.rs\\'" . rust-ts-mode)))
+
+;; cargo
+(use-package cargo-transient)
+
+;; toml
+(use-package toml-mode)
+
+;; python
+(use-package python
+  :mode (("\\.py\\'" . python-ts-mode)))
 
 ;;
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
-         (rust-mode . eglot-ensure))
-  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider))
-  :config (progn
-            (add-to-list 'eglot-server-programs
-             '((js-mode typescript-mode) . (eglot-deno "deno" "lsp")))
-
-            (defclass eglot-deno (eglot-lsp-server) ()
-              :documentation "A custom class for deno lsp.")
-
-            (cl-defmethod eglot-initialization-options ((server eglot-deno))
-              "Passes through required deno initialization options"
-              (list :enable t :lint t))))
+         (python-ts-mode . eglot-ensure)
+         (rust-ts-mode . eglot-ensure))
+  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
 (use-package justl)
 (use-package just-mode)
 
-;;
-(defun rust-check-x (orig-rust-check)
-  "Run chargo check in /tmp/cargo."
+;; tmp
+(defun cargo-transient-check-x (orig-rust-check)
+  "Run chargo check in ~/tmp/cargo."
   (interactive)
   (let* ((envs '("CARGO_TARGET_DIR=/home/aka/tmp/cargo"
                  "CARGO_BUILD_JOBS=12"))
          (process-environment (append envs process-environment)))
     (call-interactively orig-rust-check)))
 
-(advice-add 'rust-check :around #'rust-check-x)
+(advice-add 'cargo-transient-check :around #'cargo-transient-check-x)
 
 ;;(make-variable-buffer-local 'compilation-search-path)
 ;;(push  "/home/aka/devel/gensym/tvbeat/repos/ae/src" compilation-search-path)
-
-
-(use-package typescript-mode)
-(use-package toml-mode)
