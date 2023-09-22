@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
+;; M-x treesit-install-language-grammar to install grammars
+
 ;; compile
 (use-package popwin
   :config (progn
@@ -9,6 +11,9 @@
 (setq compilation-scroll-output t)
 
 ;; rust
+(use-package rust-mode
+  :config (require 'rust-compile))
+
 (use-package rust-ts-mode
   :bind (("C-c C-k" . cargo-transient-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
