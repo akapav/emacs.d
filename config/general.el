@@ -34,7 +34,7 @@
 (fringe-mode 1)
 (global-hl-line-mode 1)
 (mouse-wheel-mode t)
-(load-theme 'modus-vivendi)
+(load-theme 'modus-operandi)
 
 ;; face
 (set-face-attribute 'default nil :height 120)
@@ -64,6 +64,13 @@
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
+
+;; org scratch buffer
+(defun org-scratch-buffer ()
+  "Show or create an org scratch buffer."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*org scratch*"))
+  (org-mode))
 
 ;; caret
 (defun set-cursor-according-to-mode ()
@@ -196,6 +203,16 @@
 (use-package vertico
  :init (vertico-mode))
 
+(use-package vertico-directory
+  :after vertico
+  :straight nil
+  :load-path "straight/repos/vertico/extensions/"
+  :bind ( :map vertico-map
+          ("RET" . vertico-directory-enter)
+          ("DEL" . vertico-directory-delete-char)
+          ("M-DEL" . vertico-directory-delete-word))
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
 (use-package orderless
   :custom
   (completion-styles '(partial-completion orderless))
@@ -259,6 +276,18 @@ _4_: end            _r_: down           _f_: down
             (setq org-hide-leading-stars t)
             (setq org-cycle-separator-lines 0)))
 
+;; org-roam
+(use-package org-roam
+  :custom
+  (org-roam-directory "~/org/roam")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i" . completion-at-point))
+  :config (org-roam-db-autosync-enable))
+
 ;; dired
 (use-package dired-x
   :straight nil
@@ -311,7 +340,7 @@ _4_: end            _r_: down           _f_: down
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
 
-(when (daemonp) (erc/connect))
+;;;(when (daemonp) (erc/connect))
 
 ;; tramp
 ;; (use-package tramp
