@@ -18,6 +18,10 @@
   :bind (("C-c C-k" . cargo-transient-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
+;; js
+(use-package js2-mode
+  :mode ("\\.js\\'" . js2-mode))
+
 ;; cargo
 (use-package cargo-transient)
 
@@ -28,12 +32,16 @@
 (use-package python
   :mode (("\\.py\\'" . python-ts-mode)))
 
-;;
+;; eglot
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
-         (rust-ts-mode . eglot-ensure))
+         (rust-ts-mode . eglot-ensure)
+         (js2-mode . eglot-ensure))
+  :config
+  ;;;(add-to-list 'eglot-server-programs '((js2-mode) . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs '((js2-mode) . ("javascript-typescript-stdio")))
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
