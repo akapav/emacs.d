@@ -47,10 +47,8 @@
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
          (rust-ts-mode . eglot-ensure)
-         (js2-mode . eglot-ensure))
-  :config
-  ;;;(add-to-list 'eglot-server-programs '((js2-mode) . ("typescript-language-server" "--stdio")))
-  (add-to-list 'eglot-server-programs '((js2-mode) . ("javascript-typescript-stdio")))
+         (js2-mode . eglot-ensure)
+         (typescript-mode . eglot-ensure))
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
