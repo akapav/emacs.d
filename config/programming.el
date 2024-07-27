@@ -4,6 +4,7 @@
 
 ;; compile
 (use-package popwin
+  :ensure t
   :config (progn
             (popwin-mode 1)
             (push '("*compilation*" :height 30) popwin:special-display-config)))
@@ -12,28 +13,36 @@
 
 ;; rust
 (use-package rust-mode
+  :ensure t
   :config (require 'rust-compile))
 
 (use-package rust-ts-mode
+  :ensure t
   :bind (("C-c C-k" . cargo-transient-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
 ;; js
 (use-package js2-mode
+  :ensure t
   :mode ("\\.js\\'" . js2-mode))
 
 ;; cargo
-(use-package cargo-transient)
+(use-package cargo-transient
+  :ensure t)
 
 ;; toml
-(use-package toml-mode)
+(use-package toml-mode
+  :ensure t
+  :ensure t)
 
 ;; python
 (use-package python
+  :ensure t
   :mode (("\\.py\\'" . python-ts-mode)))
 
 ;; eglot
 (use-package eglot
+  :ensure t
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
@@ -45,8 +54,11 @@
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
-(use-package justl)
-(use-package just-mode)
+(use-package justl
+  :ensure t)
+
+(use-package just-mode
+  :ensure t)
 
 ;; tmp
 (defun cargo-transient-check-x (orig-rust-check)

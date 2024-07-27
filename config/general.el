@@ -107,12 +107,15 @@
 
 ;;
 (use-package expand-region
+  :ensure t
   :bind (("C-=" . er/expand-region)))
 
 (use-package windmove
+  :ensure t
   :config (windmove-default-keybindings 'meta))
 
 (use-package window-numbering
+  :ensure t
   :config (window-numbering-mode))
 
 ;;
@@ -137,10 +140,12 @@
 (define-key (current-global-map) [remap kill-region   ] 'kill-region-x   )
 
 (use-package visible-mark
+  :ensure t
   :config (global-visible-mark-mode 1))
 
 ;; yank/kill
 (use-package browse-kill-ring
+  :ensure t
   :bind (("M-y" . browse-kill-ring)))
 
 (defun kill-eol-save ()
@@ -158,6 +163,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package whitespace
+  :ensure t
   :init   (setq
            whitespace-style            '(trailing tabs tab-mark face)
            whitespace-global-modes     '(not erc-mode))
@@ -183,27 +189,33 @@
   [remap move-beginning-of-line] 'move-beginning-of-line-x)
 
 (use-package avy
+  :ensure t
   :bind (("M-s" . avy-goto-word-1)))
 
 (global-set-key [(control shift w)] 'electric-buffer-list)
 
 ;; which key
 (use-package which-key
+  :ensure t
   :config (which-key-mode t))
 
 ;; ripgrep
 (use-package rg
+  :ensure t
   :config (rg-enable-default-bindings))
 
 ;; company
 (use-package company
+  :ensure t
   :init (add-hook 'after-init-hook 'global-company-mode))
 
 ;;completions/vertico/orgerless/marginalia
 (use-package vertico
+  :ensure t
  :init (vertico-mode))
 
 (use-package vertico-directory
+  :ensure t
   :after vertico
   :straight nil
   :load-path "straight/repos/vertico/extensions/"
@@ -214,6 +226,7 @@
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package orderless
+  :ensure t
   :custom
   (completion-styles '(partial-completion orderless))
   (completion-category-overrides '((file (styles basic partial-completion)))))
@@ -223,6 +236,7 @@
 ;; (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package marginalia
+  :ensure t
   :bind
   (("M-A" . marginalia-cycle)
    :map minibuffer-local-map
@@ -230,9 +244,11 @@
   :init (marginalia-mode))
 
 (use-package savehist
+  :ensure t
   :init (savehist-mode))
 
 (use-package embark
+  :ensure t
   :bind
   (("C-." . embark-act)
    ("C-," . embark-dwim))
@@ -241,6 +257,7 @@
 
 ;; hydra
 (use-package hydra
+  :ensure t
   :init
   (progn
     (defhydra hydra-navigate (:hint nil)
@@ -267,6 +284,7 @@ _4_: end            _r_: down           _f_: down
 
 ;; org-mode
 (use-package org
+  :ensure t
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
          ("C-c c" . org-capture))
@@ -278,6 +296,7 @@ _4_: end            _r_: down           _f_: down
 
 ;; org-roam
 (use-package org-roam
+  :ensure t
   :custom
   (org-roam-directory "~/org/roam")
   (org-roam-completion-everywhere t)
@@ -290,6 +309,7 @@ _4_: end            _r_: down           _f_: down
 
 ;; dired
 (use-package dired-x
+  :ensure t
   :straight nil
   :bind (("C-c C-h" . dired-omit-mode))
   :config (progn
@@ -301,12 +321,17 @@ _4_: end            _r_: down           _f_: down
 
 ;; magit
 (use-package magit
+  :ensure t
   :bind (("C-x g" . magit-status)))
 
-(use-package forge :after magit)
+(use-package
+  :ensure t
+  forge :after magit)
+
 
 ;; eshell
 (use-package eshell
+  :ensure t
   :init
   (progn
     (require 'em-smart)
@@ -330,6 +355,7 @@ _4_: end            _r_: down           _f_: down
 ;;;(use-package znc :straight t)
 
 (use-package erc
+  :ensure t
   :init
   (progn
     (setq erc-autojoin-channels-alist
