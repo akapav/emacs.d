@@ -26,6 +26,11 @@
   :ensure t
   :mode ("\\.js\\'" . js2-mode))
 
+;; ts
+(use-package typescript-mode
+  :ensure t
+  :mode ("\\.ts\\'" . typescript-mode))
+
 ;; cargo
 (use-package cargo-transient
   :ensure t)
