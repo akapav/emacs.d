@@ -22,12 +22,21 @@
 (setq custom-file "~/.emacs.d/cust.el")
 (load custom-file t)
 
+;; macos
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+  (when (eq system-type 'darwin)
+    (setq ns-use-native-fullscreen nil)
+    (exec-path-from-shell-initialize)))
+
 ;; appereance
 (setq inhibit-splash-screen t
       visible-bell nil
       ring-bell-function (lambda nil))
 
-(menu-bar-mode 0)
+(unless (eq system-type 'darwin)
+  (menu-bar-mode 0))
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (column-number-mode t)
@@ -36,8 +45,17 @@
 (mouse-wheel-mode t)
 (load-theme 'modus-operandi)
 
-;; face
-(set-face-attribute 'default nil :height 120)
+;; font
+(defun set-font ()
+  (message "set font")
+  (set-frame-font "Jetbrains Mono NL-13")
+  (setq-default line-spacing 0.15))
+
+(set-font)
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (when (display-graphic-p frame)
+              (with-selected-frame frame (set-font)))))
 
 ;; highlight selected window
 (defun highlight-selected-window ()
