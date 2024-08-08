@@ -2,12 +2,27 @@
 
 ;; M-x treesit-install-language-grammar to install grammars
 
-;; compile
+;; popwin
+(setq popwin/rules `(("*compilation" . 30)
+                     ("*eldoc*" . 15)))
+
+
+(defun popwin/apply-rules ()
+  (interactive)
+  (let ((normalized-rules
+         (mapcar (lambda (p)
+                   (let ((window (car p))
+                         (height (cdr p)))
+                     `(,window :height ,height)))
+                 popwin/rules)))
+    (setq popwin:special-display-config (append normalized-rules popwin/original-value))))
+
 (use-package popwin
   :ensure t
   :config (progn
             (popwin-mode 1)
-            (push '("*compilation*" :height 30) popwin:special-display-config)))
+            (setq popwin/original-value popwin:special-display-config)
+            (popwin/apply-rules)))
 
 (setq compilation-scroll-output t)
 
