@@ -384,6 +384,12 @@ _4_: end            _r_: down           _f_: down
   (interactive)
   (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
 
+
+;; vterm
+(use-package vterm
+  :hook ((vterm-mode . (lambda () (setq-local global-hl-line-mode nil)))))
+
+
 ;;;(when (daemonp) (erc/connect))
 
 ;; tramp

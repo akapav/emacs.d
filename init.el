@@ -19,3 +19,4 @@
 (push "~/.emacs.d/config" load-path)
 (load "general")
 (load "programming")
+(put 'downcase-region 'disabled nil)

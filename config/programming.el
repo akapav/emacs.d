@@ -3,7 +3,7 @@
 ;; M-x treesit-install-language-grammar to install grammars
 
 ;; popwin
-(setq popwin/rules `(("*compilation" . 30)
+(setq popwin/rules `(("*compilation*" . 30)
                      ("*eldoc*" . 15)))
 
 
@@ -36,6 +36,14 @@
   :bind (("C-c C-k" . cargo-transient-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
+;; cargo
+(use-package cargo-transient
+  :ensure t)
+
+;; toml
+(use-package toml-mode
+  :ensure t)
+
 ;; js
 (use-package js2-mode
   :ensure t
@@ -46,19 +54,21 @@
   :ensure t
   :mode ("\\.ts\\'" . typescript-mode))
 
-;; cargo
-(use-package cargo-transient
-  :ensure t)
-
-;; toml
-(use-package toml-mode
-  :ensure t
-  :ensure t)
-
 ;; python
 (use-package python
   :ensure t
   :mode (("\\.py\\'" . python-ts-mode)))
+
+;; julia
+(use-package julia-mode
+  :ensure t
+  :mode(("\\.jl\\`" . julia-mode))) ;;; julia-ts-mode
+
+(use-package eglot-jl
+  :ensure t
+  :hook ((julia-mode . eglot-jl-init)))
+
+(use-package julia-vterm)
 
 ;; eglot
 (use-package eglot
@@ -68,7 +78,9 @@
          (python-ts-mode . eglot-ensure)
          (rust-ts-mode . eglot-ensure)
          (js2-mode . eglot-ensure)
-         (typescript-mode . eglot-ensure))
+         (typescript-mode . eglot-ensure)
+         ;;;;(julia-mode . elgot-ensure)
+         )
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
