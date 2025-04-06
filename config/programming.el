@@ -33,12 +33,12 @@
 
 (use-package rust-ts-mode
   :ensure t
-  :bind (("C-c C-k" . cargo-transient-check))
+  :bind (("C-c C-k" . rust-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
 ;; cargo
-(use-package cargo-transient
-  :ensure t)
+;;(use-package cargo-transient
+;;  :ensure t)
 
 ;; toml
 (use-package toml-mode
@@ -91,15 +91,15 @@
   :ensure t)
 
 ;; tmp
-(defun cargo-transient-check-x (orig-rust-check)
-  "Run chargo check in ~/tmp/cargo."
-  (interactive)
-  (let* ((envs '("CARGO_TARGET_DIR=/home/aka/tmp/cargo"
-                 "CARGO_BUILD_JOBS=12"))
-         (process-environment (append envs process-environment)))
-    (call-interactively orig-rust-check)))
+;; (defun cargo-transient-check-x (orig-rust-check)
+;;   "Run chargo check in ~/tmp/cargo."
+;;   (interactive)
+;;   (let* ((envs '("CARGO_TARGET_DIR=/home/aka/tmp/cargo"
+;;                  "CARGO_BUILD_JOBS=12"))
+;;          (process-environment (append envs process-environment)))
+;;     (call-interactively orig-rust-check)))
 
-(advice-add 'cargo-transient-check :around #'cargo-transient-check-x)
+;; (advice-add 'cargo-transient-check :around #'cargo-transient-check-x)
 
 ;;(make-variable-buffer-local 'compilation-search-path)
 ;;(push  "/home/aka/devel/gensym/tvbeat/repos/ae/src" compilation-search-path)
