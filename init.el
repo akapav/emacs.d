@@ -15,6 +15,40 @@
         ("melpa" . 2)
         ("nongnu" . 1)))
 
+;; list of installed packages
+(setq package-selected-packages
+      '(avy
+        breadcrumb
+        browse-kill-ring
+        cargo-transient
+        chatgpt-shell
+        company
+        ;;dashboard
+        ;;eglot-jl
+        embark
+        exec-path-from-shell
+        expand-region
+        gptel
+        hydra
+        js2-mode
+        ;;julia-mode
+        just-mode
+        justl
+        magit
+        marginalia
+        orderless
+        org-present
+        org-roam
+        poporg
+        popwin
+        rg
+        rust-mode
+        toml-mode
+        typescript-mode
+        vertico
+        visible-mark
+        window-numbering))
+
 ;; load the config
 (push "~/.emacs.d/config" load-path)
 (load "general")

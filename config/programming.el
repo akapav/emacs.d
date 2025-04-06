@@ -18,7 +18,6 @@
     (setq popwin:special-display-config (append normalized-rules popwin/original-value))))
 
 (use-package popwin
-  :ensure t
   :config (progn
             (popwin-mode 1)
             (setq popwin/original-value popwin:special-display-config)
@@ -28,51 +27,41 @@
 
 ;; rust
 (use-package rust-mode
-  :ensure t
   :config (require 'rust-compile))
 
 (use-package rust-ts-mode
-  :ensure t
   :bind (("C-c C-k" . rust-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
 ;; cargo
-;;(use-package cargo-transient
-;;  :ensure t)
+;;(use-package cargo-transient)
 
 ;; toml
-(use-package toml-mode
-  :ensure t)
+(use-package toml-mode)
 
 ;; js
 (use-package js2-mode
-  :ensure t
   :mode ("\\.js\\'" . js2-mode))
 
 ;; ts
 (use-package typescript-mode
-  :ensure t
   :mode ("\\.ts\\'" . typescript-mode))
 
 ;; python
 (use-package python
-  :ensure t
   :mode (("\\.py\\'" . python-ts-mode)))
 
 ;; julia
-(use-package julia-mode
-  :ensure t
-  :mode(("\\.jl\\`" . julia-mode))) ;;; julia-ts-mode
+;; (use-package julia-mode
+;;   :mode(("\\.jl\\`" . julia-mode))) ;;; julia-ts-mode
 
-(use-package eglot-jl
-  :ensure t
-  :hook ((julia-mode . eglot-jl-init)))
+;; (use-package eglot-jl
+;;   :hook ((julia-mode . eglot-jl-init)))
 
-(use-package julia-vterm)
+;; (use-package julia-vterm)
 
 ;; eglot
 (use-package eglot
-  :ensure t
   :hook ((c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
@@ -84,11 +73,8 @@
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
 
 ;; just
-(use-package justl
-  :ensure t)
-
-(use-package just-mode
-  :ensure t)
+(use-package justl)
+(use-package just-mode)
 
 ;; tmp
 ;; (defun cargo-transient-check-x (orig-rust-check)
