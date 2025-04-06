@@ -37,6 +37,11 @@
 
 (unless (eq system-type 'darwin)
   (menu-bar-mode 0))
+
+;;; macos
+(select-frame-set-input-focus (selected-frame))
+(pixel-scroll-precision-mode 1)
+
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (column-number-mode t)
@@ -55,7 +60,9 @@
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (when (display-graphic-p frame)
-              (with-selected-frame frame (set-font)))))
+              (with-selected-frame frame (set-font))
+              ;; macos
+              (select-frame-set-input-focus frame))))
 
 ;; highlight selected window
 (defun highlight-selected-window ()
@@ -224,24 +231,25 @@
 
 ;; company
 (use-package company
-  :ensure t
-  :init (add-hook 'after-init-hook 'global-company-mode))
+ :ensure t
+ :init (add-hook 'after-init-hook 'global-company-mode))
+
+(completion-preview-mode 1)
 
 ;;completions/vertico/orgerless/marginalia
 (use-package vertico
   :ensure t
  :init (vertico-mode))
 
-(use-package vertico-directory
-  :ensure t
-  :after vertico
-  :straight nil
-  :load-path "straight/repos/vertico/extensions/"
-  :bind ( :map vertico-map
-          ("RET" . vertico-directory-enter)
-          ("DEL" . vertico-directory-delete-char)
-          ("M-DEL" . vertico-directory-delete-word))
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+;; (use-package vertico-directory
+;;   :ensure t
+;;   :after vertico
+;;   :load-path "straight/repos/vertico/extensions/"
+;;   :bind ( :map vertico-map
+;;           ("RET" . vertico-directory-enter)
+;;           ("DEL" . vertico-directory-delete-char)
+;;           ("M-DEL" . vertico-directory-delete-word))
+;;   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 (use-package orderless
   :ensure t
@@ -328,7 +336,6 @@ _4_: end            _r_: down           _f_: down
 ;; dired
 (use-package dired-x
   :ensure t
-  :straight nil
   :bind (("C-c C-h" . dired-omit-mode))
   :config (progn
             (setq dired-omit-files "\\`[.][^.].*\\'")
@@ -358,6 +365,9 @@ _4_: end            _r_: down           _f_: down
           eshell-smart-space-goes-to-end t))
   :hook (eshell-mode . eshell-smart-initialize))
 
+;; ispell
+(setq ispell-program-name "hunspell")
+
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
@@ -367,6 +377,10 @@ _4_: end            _r_: down           _f_: down
   :custom
   ((chatgpt-shell-openai-key
     (lambda () (auth-source-pick-first-password :host "api.openai.com")))))
+
+;; gptel
+(use-package gptel
+  :ensure t)
 
 ;; erc
 ;;; TODO(aka): remove a startup warning
