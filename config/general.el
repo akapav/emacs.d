@@ -219,6 +219,10 @@
 
 (global-set-key [(control shift w)] 'electric-buffer-list)
 
+;; breadcrumb
+(use-package breadcrumb
+  :config (breadcrumb-mode 1))
+
 ;; which key
 (use-package which-key
   :ensure t
