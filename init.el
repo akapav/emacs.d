@@ -41,6 +41,7 @@
         org-roam
         poporg
         popwin
+        pyvenv
         rg
         rust-mode
         toml-mode
