@@ -33,6 +33,29 @@
   :bind (("C-c C-k" . rust-check))
   :mode (("\\.rs\\'" . rust-ts-mode)))
 
+(defun rust-tree-sitter-current-function-name ()
+  "Return the name of the Rust function around point using tree-sitter."
+  (when (and (eq major-mode 'rust-ts-mode)
+             (treesit-ready-p 'rust))
+    (save-excursion
+      (let ((node (treesit-node-at (point))))
+        (while (and node
+                    (not (equal (treesit-node-type node) "function_item")))
+          (setq node (treesit-node-parent node)))
+        (when node
+          (let ((name-node (treesit-node-child-by-field-name node "name")))
+            (when name-node
+              (treesit-node-text name-node))))))))
+
+
+(defun rust-run-test-at-point ()
+  "Run `cargo test` for the Rust function at point using Tree-sitter."
+  (interactive)
+  (let ((fn-name (rust-tree-sitter-current-function-name)))
+    (if fn-name
+        (compile (format "cargo test --release  %s" fn-name))
+      (message "No Rust function found at point."))))
+
 ;; cargo
 ;;(use-package cargo-transient)
 
@@ -50,6 +73,8 @@
 ;; python
 (use-package python
   :mode (("\\.py\\'" . python-ts-mode)))
+
+(use-package pyvenv) ;;; activate .venv from emacs
 
 ;; julia
 ;; (use-package julia-mode
