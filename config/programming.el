@@ -48,12 +48,13 @@
               (treesit-node-text name-node))))))))
 
 
-(defun rust-run-test-at-point ()
+(defun rust-run-test-at-point (arg)
   "Run `cargo test` for the Rust function at point using Tree-sitter."
-  (interactive)
-  (let ((fn-name (rust-tree-sitter-current-function-name)))
+  (interactive "P")
+  (let ((fn-name (rust-tree-sitter-current-function-name))
+        (capture-flag (if arg "-- --nocapture" "")))
     (if fn-name
-        (compile (format "cargo test --release  %s" fn-name))
+        (compile (format "cargo test --release  %s %s" capture-flag fn-name))
       (message "No Rust function found at point."))))
 
 ;; cargo
