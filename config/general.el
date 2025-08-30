@@ -306,6 +306,8 @@ _4_: end            _r_: down           _f_: down
   :config (progn
             (require 'ox-md)
             (setq org-log-into-drawer t)
+            (setq org-id-link-to-org-use-id
+                  'create-if-interactive-and-no-custom-id)
             (setq org-startup-indented t)
             (setq org-hide-leading-stars t)
             (setq org-cycle-separator-lines 0)))
