@@ -97,6 +97,25 @@
   (switch-to-buffer (get-buffer-create "*org scratch*"))
   (org-mode))
 
+;; calendar
+(setq calendar-week-start-day 1)
+
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+                (car
+                 (calendar-iso-from-absolute
+                  (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'font-lock-warning-face))
+
+(setq calendar-intermonth-header
+      (propertize "Wk" 'font-lock-face 'font-lock-keyword-face))
+
+(defun insert-week-year-timestamp ()
+  "Insert the current week number and year as a string."
+  (interactive)
+  (insert (format-time-string "%Y-W%V")))
+
 ;; caret
 (defun set-cursor-according-to-mode ()
  (cond
@@ -308,6 +327,8 @@ _4_: end            _r_: down           _f_: down
             (setq org-log-into-drawer t)
             (setq org-id-link-to-org-use-id
                   'create-if-interactive-and-no-custom-id)
+            (setq org-M-RET-may-split-line nil)
+            (setq org-insert-heading-respect-content t)
             (setq org-startup-indented t)
             (setq org-hide-leading-stars t)
             (setq org-cycle-separator-lines 0)))
