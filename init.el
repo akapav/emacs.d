@@ -25,6 +25,7 @@
         company
         ;;dashboard
         ;;eglot-jl
+        eat
         embark
         exec-path-from-shell
         expand-region
@@ -55,3 +56,4 @@
 (load "general")
 (load "programming")
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

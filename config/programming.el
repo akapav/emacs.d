@@ -115,3 +115,34 @@
 
 ;;(make-variable-buffer-local 'compilation-search-path)
 ;;(push  "/home/aka/devel/gensym/tvbeat/repos/ae/src" compilation-search-path)
+
+;; codex
+(defun codex-login ()
+  (interactive)
+  (let* ((entry (car (auth-source-search :host "api.openai.com" :max 1)))
+         (secret (when entry
+                   (let ((s (plist-get entry :secret)))
+                     (if (functionp s) (funcall s) s)))))
+    (if (not secret)
+        (message "API key not found for api.openai.com")
+      (with-temp-buffer
+        (insert secret)
+        (let ((exit-code
+               (call-process-region
+                (point-min) (point-max)
+                "codex"         ; program
+                nil             ; don't delete input
+                "*Codex Login*" ; output buffer
+                nil             ; display asynch? nil==wait
+                "login" "--with-api-key")))
+          (if (zerop exit-code)
+              (progn (with-current-buffer "*Codex Login*"
+                       (message "codex login successful: %s"
+                                (buffer-string))))
+            (progn
+              (pop-to-buffer "*Codex Login*")
+              (message "codex login failed (code %d)" exit-code))))))))
+
+(defun codex-shell ()
+  (interactive)
+  (eat "codex"))
