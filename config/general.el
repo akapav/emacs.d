@@ -271,6 +271,9 @@
 ;; add to :custom in orderless
 ;; basic completion style for tramp
 ;; (completion-category-overrides '((file (styles basic partial-completion)))))
+(with-eval-after-load 'tramp
+  ;; This pushes your Linux ~/.cargo/bin into TRAMP's search path
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 (use-package marginalia
   :bind
