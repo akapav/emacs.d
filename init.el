@@ -49,6 +49,7 @@
         typescript-mode
         vertico
         visible-mark
+        vterm
         window-numbering))
 
 ;; load the config
