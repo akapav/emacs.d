@@ -21,7 +21,7 @@
         breadcrumb
         browse-kill-ring
         cargo-transient
-        chatgpt-shell
+        aidermacs
         company
         ;;dashboard
         ;;eglot-jl
@@ -56,5 +56,6 @@
 (push "~/.emacs.d/config" load-path)
 (load "general")
 (load "programming")
+(load "llm")
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
