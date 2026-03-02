@@ -3,7 +3,7 @@
 ;; gptel: interactive chat and rewriting
 ;; C-c g     open/send to gptel buffer (also switches model/backend)
 ;; C-c RET   send in an active gptel buffer
-;; C-c r     rewrite selected region
+;; C-c r     rewrite selected region (gptel-rewrite)
 (use-package gptel
   :ensure t
   :bind (("C-c g" . gptel-menu)
@@ -24,7 +24,7 @@
               :host "generativelanguage.googleapis.com"
               :user "apikey"))
       :stream t
-      :models '(gemini-2.5-flash gemini-2.0-flash)))
+      :models '(gemini-3.1-pro-preview gemini-3-flash-preview)))
 
   ;; Anthropic Claude
   (defvar llm/claude
