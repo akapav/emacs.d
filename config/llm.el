@@ -50,6 +50,11 @@
           (auth-source-pick-first-password
            :host "generativelanguage.googleapis.com"
            :user "apikey"))
-  (setq aidermacs-default-model "gemini/gemini-2.5-flash"
+  (setenv "ANTHROPIC_API_KEY"
+          (auth-source-pick-first-password
+           :host "api.anthropic.com"))
+  ;; switch model at runtime via C-c A → model
+  ;; e.g. anthropic/claude-sonnet-4-6, gemini/gemini-3.1-pro-preview, ollama/qwen2.5-coder:32b
+  (setq aidermacs-default-model "anthropic/claude-sonnet-4-6"
         aidermacs-extra-args    '("--no-auto-commits")
         aidermacs-backend       'vterm))
