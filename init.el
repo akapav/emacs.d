@@ -39,7 +39,6 @@
         marginalia
         orderless
         org-present
-        org-roam
         poporg
         popwin
         pyvenv

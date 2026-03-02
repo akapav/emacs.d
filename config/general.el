@@ -341,8 +341,32 @@ _4_: end            _r_: down           _f_: down
       ("r" scroll-up)
       ("d" beginning-of-defun)
       ("f" end-of-defun)
-      ("c" nil "cancel" :color red)))
+      ("c" nil "cancel" :color red))
+
+    (defhydra hydra-dashboard (:hint nil :exit t)
+"
+^Dashboard^
+-----------
+_d_: ~/Hacking/devel
+_o_: ~/Hacking/org
+_i_: IRC
+_e_: eshell
+_q_: quit
+"
+      ("d" (dired "~/Hacking/devel"))
+      ("o" (dired "~/Hacking/org"))
+      ("i" erc/connect)
+      ("e" (let ((default-directory "~/Hacking")) (eshell)))
+      ("q" nil)))
+
   :bind ("M-j" . hydra-navigate/body))
+
+;; show dashboard on every new emacsclient frame
+(when (daemonp)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (hydra-dashboard/body)))))
 
 ;; TODO: consult
 
@@ -366,17 +390,6 @@ _4_: end            _r_: down           _f_: down
             (setq org-hide-leading-stars t)
             (setq org-cycle-separator-lines 0)))
 
-;; org-roam
-(use-package org-roam
-  :custom
-  (org-roam-directory "~/org/roam")
-  (org-roam-completion-everywhere t)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         :map org-mode-map
-         ("C-M-i" . completion-at-point))
-  :config (org-roam-db-autosync-enable))
 
 ;; dired
 (use-package dired-x
@@ -421,7 +434,11 @@ _4_: end            _r_: down           _f_: down
 
 (defun erc/connect ()
   (interactive)
-  (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))
+  (let ((server-buf (get-buffer "irc.libera.chat:6697")))
+    (if (and server-buf
+             (with-current-buffer server-buf (erc-server-process-alive)))
+        (switch-to-buffer server-buf)
+      (erc-tls :server "irc.libera.chat" :port 6697 :nick "akapav"))))
 
 
 ;; vterm
