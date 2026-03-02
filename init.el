@@ -48,6 +48,7 @@
         toml-mode
         typescript-mode
         vertico
+        perspective
         visible-mark
         vterm
         window-numbering))

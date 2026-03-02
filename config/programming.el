@@ -4,7 +4,12 @@
 
 ;; popwin
 (setq popwin/rules `(("*compilation*" . 30)
-                     ("*eldoc*" . 15)))
+                     ("*eldoc*"       . 15)
+                     ("*rg*"          . 20)
+                     ("*grep*"        . 20)
+                     ("*Help*"        . 20)
+                     ("*Warnings*"    . 15)
+                     ("*eshell*"      . 20)))
 
 
 (defun popwin/apply-rules ()
