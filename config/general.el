@@ -161,37 +161,6 @@
 
 (winner-mode 1)
 
-(use-package perspective
-  :custom (persp-mode-prefix-key (kbd "C-c P"))
-  :init (persp-mode)
-  :config
-  (setq persp-state-default-file (expand-file-name "perspectives" user-emacs-directory))
-
-  ;; save on every switch and on quit
-  (add-hook 'persp-switch-hook
-            (lambda () (persp-state-save persp-state-default-file)))
-  (add-hook 'kill-emacs-hook
-            (lambda () (persp-state-save persp-state-default-file)))
-
-  ;; on startup: restore saved perspectives (available via C-c P s)
-  ;; but stay in clean "main"
-  (add-hook 'after-init-hook
-            (lambda ()
-              (when (file-exists-p persp-state-default-file)
-                (condition-case err
-                    (progn
-                      (persp-state-load persp-state-default-file)
-                      (persp-switch "main"))
-                  (error
-                   (message "perspective restore failed: %s" err))))))
-
-  ;; auto-create/switch to a perspective named after the project
-  (defun my/project-persp-switch (dir)
-    "Switch to perspective named after project DIR."
-    (interactive (list (project-prompt-project-dir)))
-    (persp-switch (file-name-nondirectory (directory-file-name dir))))
-
-  (global-set-key [remap project-switch-project] #'my/project-persp-switch))
 
 ;;
 (defun apply-region-or-line (fn)
