@@ -1,6 +1,11 @@
 ;; -*- lexical-binding: t; -*-
 
 ;; M-x treesit-install-language-grammar to install grammars
+(setq treesit-language-source-alist
+      '((c "https://github.com/tree-sitter/tree-sitter-c")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (rust "https://github.com/tree-sitter/tree-sitter-rust")
+        (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")))
 
 ;; popwin
 (setq popwin/rules `(("*compilation*" . 30)
@@ -91,14 +96,26 @@
 
 ;; (use-package julia-vterm)
 
+;; c tree-sitter
+(use-package c-ts-mode
+  :mode (("\\.c\\'" . c-ts-mode)
+         ("\\.h\\'" . c-ts-mode)))
+
+;; lua
+(use-package lua-mode)
+
+(use-package lua-ts-mode
+  :mode (("\\.lua\\'" . lua-ts-mode)))
+
 ;; eglot
 (use-package eglot
-  :hook ((c-mode . eglot-ensure)
+  :hook ((c-ts-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
          (rust-ts-mode . eglot-ensure)
          (js2-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
+         (lua-ts-mode . eglot-ensure)
          ;;;;(julia-mode . elgot-ensure)
          )
   :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
