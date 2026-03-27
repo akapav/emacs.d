@@ -24,7 +24,7 @@
 
 ;; macos
 (use-package exec-path-from-shell
-  :ensure t
+  ;;;:ensure t
   :init
   (when (eq system-type 'darwin)
     (setq ns-use-native-fullscreen nil)
@@ -178,8 +178,12 @@
   (add-hook 'after-init-hook
             (lambda ()
               (when (file-exists-p persp-state-default-file)
-                (persp-state-load persp-state-default-file)
-                (persp-switch "main"))))
+                (condition-case err
+                    (progn
+                      (persp-state-load persp-state-default-file)
+                      (persp-switch "main"))
+                  (error
+                   (message "perspective restore failed: %s" err))))))
 
   ;; auto-create/switch to a perspective named after the project
   (defun my/project-persp-switch (dir)

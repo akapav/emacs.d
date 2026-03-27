@@ -5,7 +5,7 @@
 ;; C-c RET   send in an active gptel buffer
 ;; C-c r     rewrite selected region (gptel-rewrite)
 (use-package gptel
-  :ensure t
+  ;;;:ensure t
   :bind (("C-c g" . gptel-menu)
          ("C-c r" . gptel-rewrite))
   :config
@@ -43,7 +43,7 @@
 ;; aidermacs: full agent / aider mode
 ;; C-c A     open aidermacs transient menu
 (use-package aidermacs
-  :ensure t
+  ;;;:ensure t
   :bind ("C-c A" . aidermacs-transient-menu)
   :config
   (setenv "GEMINI_API_KEY"
