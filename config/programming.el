@@ -91,6 +91,10 @@
 
 ;; (use-package julia-vterm)
 
+;; odin
+(add-to-list 'load-path "~/Hacking/devel/3rd/odin-mode")
+(require 'odin-mode)
+
 ;; eglot
 (use-package eglot
   :hook ((c-mode . eglot-ensure)
@@ -99,9 +103,12 @@
          (rust-ts-mode . eglot-ensure)
          (js2-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
+         (odin-mode . eglot-ensure)
          ;;;;(julia-mode . elgot-ensure)
          )
-  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
+  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider))
+  :config
+  (add-to-list 'eglot-server-programs '(odin-mode . ("ols"))))
 
 ;; just
 (use-package justl)
