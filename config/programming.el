@@ -102,7 +102,8 @@
          ("\\.h\\'" . c-ts-mode)))
 
 ;; lua
-(use-package lua-mode)
+(use-package lua-mode
+  :custom (lua-default-application "luajit"))
 
 (use-package lua-ts-mode
   :mode (("\\.lua\\'" . lua-ts-mode)))
