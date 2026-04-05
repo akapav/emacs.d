@@ -15,6 +15,11 @@
         ("melpa" . 2)
         ("nongnu" . 1)))
 
+;; Pin magit to gnu-elpa to avoid version mismatch with built-in transient
+(setq package-pinned-packages
+      '(("magit" . "gnu-elpa")
+        ("magit-section" . "gnu-elpa")))
+
 ;; list of installed packages
 (setq package-selected-packages
       '(avy
