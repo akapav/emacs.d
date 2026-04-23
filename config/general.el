@@ -278,6 +278,12 @@
   ;; This pushes your Linux ~/.cargo/bin into TRAMP's search path
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
+;; envrc - direnv integration (activates nix env via TRAMP too)
+(use-package envrc
+  :hook ((rust-ts-mode . envrc-mode)
+         (rust-mode . envrc-mode))
+  :config (envrc-global-mode))
+
 (use-package marginalia
   :bind
   (("M-A" . marginalia-cycle)

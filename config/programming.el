@@ -117,9 +117,11 @@
          (js2-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
          (lua-ts-mode . eglot-ensure)
-         ;;;;(julia-mode . elgot-ensure)
+         ;;(julia-mode . eglot-ensure)
          )
-  :custom (eglot-ignored-server-capabilities '(:inlayHintProvider)))
+  :custom (eglot-ignored-server-capabilities
+           '(:inlayHintProvider
+             :documentOnTypeFormattingProvider)))
 
 ;; just
 (use-package justl)

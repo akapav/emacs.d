@@ -55,6 +55,7 @@
         lua-mode
         visible-mark
         vterm
+        envrc
         window-numbering))
 
 ;; load the config
