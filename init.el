@@ -3,6 +3,9 @@
 ;; fix
 (setq native-comp-deferred-compilation-deny-list nil)
 
+(defun package--save-selected-packages (&optional value)
+  (when value (setq package-selected-packages value)))
+
 (setq package-archives
       '(("gnu-elpa" . "https://elpa.gnu.org/packages/")
         ("gnu-elpa-devel" . "https://elpa.gnu.org/devel/")
@@ -29,7 +32,7 @@
         aidermacs
         company
         ;;dashboard
-        ;;eglot-jl
+        eglot-jl
         eat
         embark
         exec-path-from-shell
@@ -37,11 +40,13 @@
         gptel
         hydra
         js2-mode
-        ;;julia-mode
+        julia-mode
+        julia-vterm
         just-mode
         justl
         magit
         marginalia
+        odin-ts-mode
         orderless
         org-present
         poporg
@@ -57,6 +62,9 @@
         vterm
         envrc
         window-numbering))
+
+(setq package-vc-selected-packages
+      '((odin-ts-mode :url "https://github.com/Sampie159/odin-ts-mode")))
 
 ;; load the config
 (push "~/.emacs.d/config" load-path)

@@ -5,7 +5,8 @@
       '((c "https://github.com/tree-sitter/tree-sitter-c")
         (python "https://github.com/tree-sitter/tree-sitter-python")
         (rust "https://github.com/tree-sitter/tree-sitter-rust")
-        (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")))
+        (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")
+        (odin "https://github.com/tree-sitter-grammars/tree-sitter-odin")))
 
 ;; popwin
 (setq popwin/rules `(("*compilation*" . 30)
@@ -88,25 +89,36 @@
 (use-package pyvenv) ;;; activate .venv from emacs
 
 ;; julia
-;; (use-package julia-mode
-;;   :mode(("\\.jl\\`" . julia-mode))) ;;; julia-ts-mode
+(use-package julia-mode
+  :mode (("\\.jl\\'" . julia-mode)))
 
-;; (use-package eglot-jl
-;;   :hook ((julia-mode . eglot-jl-init)))
+(use-package eglot-jl
+  :hook ((julia-mode . eglot-jl-init)))
 
-;; (use-package julia-vterm)
+(use-package julia-vterm)
 
 ;; c tree-sitter
+(defun my/c-ts-mode-indent-tweaks ()
+  "Indent params/args at `parent-bol + 2` instead of aligning under the
+open paren (the default c-ts-mode behavior)."
+  (setq-local treesit-simple-indent-rules
+              `((c
+                 ((parent-is "parameter_list") parent-bol 2)
+                 ((parent-is "argument_list")  parent-bol 2)
+                 ,@(cdr (assoc 'c treesit-simple-indent-rules))))))
+
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
-         ("\\.h\\'" . c-ts-mode)))
+         ("\\.h\\'" . c-ts-mode))
+  :custom (c-ts-mode-indent-offset 2)
+  :hook (c-ts-mode . my/c-ts-mode-indent-tweaks))
 
 ;; lua
-(use-package lua-mode
-  :custom (lua-default-application "luajit"))
+(use-package lua-mode :custom (lua-default-application "luajit"))
+(use-package lua-ts-mode :mode (("\\.lua\\'" . lua-ts-mode)))
 
-(use-package lua-ts-mode
-  :mode (("\\.lua\\'" . lua-ts-mode)))
+;; odin
+(use-package odin-ts-mode :mode (("\\.odin\\'" . odin-ts-mode)))
 
 ;; eglot
 (use-package eglot
@@ -114,14 +126,17 @@
          (c++-mode . eglot-ensure)
          (python-ts-mode . eglot-ensure)
          (rust-ts-mode . eglot-ensure)
+         (odin-ts-mode . eglot-ensure)
          (js2-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
-         (lua-ts-mode . eglot-ensure)
-         ;;(julia-mode . eglot-ensure)
-         )
+         (lua-ts-mode . eglot-ensure))
   :custom (eglot-ignored-server-capabilities
            '(:inlayHintProvider
-             :documentOnTypeFormattingProvider)))
+             :documentOnTypeFormattingProvider))
+  :config
+  (add-to-list 'eglot-server-programs
+               '((python-ts-mode python-mode)
+                 . ("basedpyright-langserver" "--stdio"))))
 
 ;; just
 (use-package justl)
