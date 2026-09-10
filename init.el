@@ -29,7 +29,7 @@
         breadcrumb
         browse-kill-ring
         cargo-transient
-        aidermacs
+        ;;aidermacs
         company
         ;;dashboard
         eglot-jl
@@ -37,6 +37,7 @@
         embark
         exec-path-from-shell
         expand-region
+        fennel-mode
         gptel
         hydra
         js2-mode

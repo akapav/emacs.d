@@ -117,6 +117,11 @@ open paren (the default c-ts-mode behavior)."
 (use-package lua-mode :custom (lua-default-application "luajit"))
 (use-package lua-ts-mode :mode (("\\.lua\\'" . lua-ts-mode)))
 
+;; fennel
+(use-package fennel-mode
+  :custom
+  (fennel-program (concat "luajit " (executable-find "fennel"))))
+
 ;; odin
 (use-package odin-ts-mode :mode (("\\.odin\\'" . odin-ts-mode)))
 
